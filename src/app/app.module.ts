@@ -7,6 +7,8 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { HeaderComponent } from './header/header.component';
 import { ArchiviListComponent } from './archivi/archivi-list/archivi-list.component';
+import { PosizioniListComponent } from './posizioni/posizioni-list/posizioni-list.component';
+import { PosizioneItemComponent } from './posizioni/posizioni-list//posizione-item/posizione-item.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ArchiviListComponent } from './archivi/archivi-list/archivi-list.compon
     ServerComponent,
     ServersComponent,
     HeaderComponent,
-    ArchiviListComponent
+    ArchiviListComponent,
+    PosizioniListComponent,
+    PosizioneItemComponent
   ],
   imports: [
     BrowserModule,
