@@ -5,12 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
+import { HeaderComponent } from './header/header.component';
+import { ArchiviListComponent } from './archivi/archivi-list/archivi-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerComponent,
-    ServersComponent
+    ServersComponent,
+    HeaderComponent,
+    ArchiviListComponent
   ],
   imports: [
     BrowserModule,
