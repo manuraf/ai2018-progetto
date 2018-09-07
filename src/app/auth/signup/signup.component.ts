@@ -17,7 +17,18 @@ export class SignupComponent implements OnInit {
   onSignup(form: NgForm) {
     const username = form.value.username;
     const password = form.value.password;
-    this.authService.signupUser(username, password);
+    const signupUser = this.authService.signupUser(username, password);
+
+    signupUser.subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body", val);         
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 
 }

@@ -14,6 +14,9 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AcquistiListComponent } from './acquisti/acquisti-list/acquisti-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,11 +28,14 @@ import { AuthGuard } from './auth/auth-guard.service';
     PosizioniListComponent,
     PosizioneItemComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    AcquistiListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [AuthService, AuthGuard],
