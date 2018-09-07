@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Archivio } from '../archivio.model';
 
@@ -10,6 +10,7 @@ import { Archivio } from '../archivio.model';
 export class ArchiviListComponent implements OnInit {
 
   archivi : Archivio[] = [];
+  @Input('title') title: string;
 
   constructor() { }
 
