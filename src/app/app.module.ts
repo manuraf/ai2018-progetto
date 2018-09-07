@@ -17,6 +17,8 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AcquistiListComponent } from './acquisti/acquisti-list/acquisti-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ArchiviUtentiComponent } from './archivi/archivi-utenti/archivi-utenti.component';
+import { AcquistiMapComponent } from './acquisti/acquisti-map/acquisti-map.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SignupComponent,
     SigninComponent,
     AcquistiListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ArchiviUtentiComponent,
+    AcquistiMapComponent
   ],
   imports: [
     BrowserModule,
