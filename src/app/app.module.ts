@@ -9,6 +9,11 @@ import { HeaderComponent } from './header/header.component';
 import { ArchiviListComponent } from './archivi/archivi-list/archivi-list.component';
 import { PosizioniListComponent } from './posizioni/posizioni-list/posizioni-list.component';
 import { PosizioneItemComponent } from './posizioni/posizioni-list//posizione-item/posizione-item.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +23,16 @@ import { PosizioneItemComponent } from './posizioni/posizioni-list//posizione-it
     HeaderComponent,
     ArchiviListComponent,
     PosizioniListComponent,
-    PosizioneItemComponent
+    PosizioneItemComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
