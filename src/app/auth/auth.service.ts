@@ -1,31 +1,43 @@
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Utente } from './utente.model';
 
 @Injectable()
 export class AuthService {
 
     token : string;
-    baseUrl: string = "http://localhost:8080/progetto/";
+    baseUrl: string = "http://localhost:8080";
+
+    security_jwt_client_id: string = "testjwtclientid";
+    security_jwt_client_secret: string = "XY7kmzoNzl100";
+
+    
 
     constructor(private httpClient: HttpClient,
                 private router: Router){}
 
     signupUser(username: string, password: string) {
         //chiamata al servizio di registrazione
-        return this.httpClient.post<any>(this.baseUrl + '/', new Utente(username,password));      
+        return this.httpClient.post<any>(this.baseUrl + '/utente', new Utente(username,password));      
     }
 
     signinUser(username: string, password: string) {
         //chiamata al servizio di login
-        //return this.http.post<any>(this.appConfig.getConfig().baseUrlAuthService + '/richiediToken',
-        //{   appSecret: this.appConfig.getConfig().appSecret,
-        //    appCode: localStorage.getItem('appCode')
-        //}
-        //);
-        this.token = "XDR";
-        this.router.navigate(['/archivi']);
+        const body = new HttpParams()
+            .set('grant_type', 'password')
+            .set('username', username)
+            .set('password', password);
+
+        return this.httpClient.post<any>(
+            'http://localhost:8080/oauth/token',
+            body.toString(),
+            {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/x-www-form-urlencoded')
+                .set("Authorization", "Basic " + btoa(this.security_jwt_client_id+ ':' + this.security_jwt_client_secret))
+            }
+        );
     }
 
     getToken(){
@@ -33,7 +45,8 @@ export class AuthService {
     }
 
     isAuthenticated(){
-        return this.token != null;
+        if (!localStorage.getItem('currentUser')) return false; 
+        return true;
     }
 
     logout() {

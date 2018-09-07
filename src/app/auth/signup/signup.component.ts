@@ -9,6 +9,10 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
+    renderedKo: boolean = false;
+    renderedOk: boolean = false;
+    responseMessage: string;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -21,13 +25,12 @@ export class SignupComponent implements OnInit {
 
     signupUser.subscribe(
       (val) => {
-          console.log("POST call successful value returned in body", val);         
+          this.responseMessage = "Utente registrato con successo!";
+          this.renderedOk = true; 
       },
       response => {
-          console.log("POST call in error", response);
-      },
-      () => {
-          console.log("The POST observable is now completed.");
+        this.responseMessage = "Errore " + response.error;
+        this.renderedKo = true; 
       });
   }
 

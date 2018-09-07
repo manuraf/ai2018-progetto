@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +10,11 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  renderedKo: boolean = false;
+  responseMessage: string;
+
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -17,7 +22,19 @@ export class SigninComponent implements OnInit {
   onSignin(form: NgForm){
     const username = form.value.username;
     const password = form.value.password;
-    this.authService.signinUser(username,password);
+    const signinUser = this.authService.signinUser(username,password);
+
+    signinUser.subscribe(
+      (val) => {
+          localStorage.setItem('currentUser', JSON.stringify(val.access_token));
+          this.router.navigate(['/archivi']);
+      },
+      response => {
+        const errore = JSON.stringify(response.error.error_description);
+        this.authService.logout();
+        this.renderedKo = true;
+        this.responseMessage = errore;
+      });
   }
 
 }
