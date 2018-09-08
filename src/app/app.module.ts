@@ -17,6 +17,8 @@ import { AcquistiListComponent } from './acquisti/acquisti-list/acquisti-list.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ArchiviUtentiComponent } from './archivi/archivi-utenti/archivi-utenti.component';
 import { AcquistiMapComponent } from './acquisti/acquisti-map/acquisti-map.component';
+import { ArchiviService } from './archivi/archivi.service';
+import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AcquistiMapComponent } from './acquisti/acquisti-map/acquisti-map.compo
     AcquistiListComponent,
     PageNotFoundComponent,
     ArchiviUtentiComponent,
-    AcquistiMapComponent
+    AcquistiMapComponent,
+    ArchiviItemComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { AcquistiMapComponent } from './acquisti/acquisti-map/acquisti-map.compo
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ArchiviService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

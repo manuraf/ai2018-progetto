@@ -12,8 +12,6 @@ export class AuthService {
     security_jwt_client_id: string = "testjwtclientid";
     security_jwt_client_secret: string = "XY7kmzoNzl100";
 
-    
-
     constructor(private httpClient: HttpClient,
                 private router: Router){}
 

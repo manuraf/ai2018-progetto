@@ -1,3 +1,20 @@
-<archivi-list></archivi-list>
+<div class="container">
+    <div class="row" >
+        <button (click)="onNuovoClick()"
+            class="btn btn-primary">
+            Nuovo
+        </button>
+    </div>
 
-<archivi-list></archivi-list>
+    <div class="row" >
+        <archivi-list 
+            [title]="titleArchiviUtenti">
+        </archivi-list>
+    </div>
+
+    <div class="row">
+        <archivi-list
+            [title]="titleArchiviAcquistati">
+        </archivi-list>
+    </div>
+</div>

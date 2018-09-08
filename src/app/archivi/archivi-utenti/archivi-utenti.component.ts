@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Archivio } from '../archivio.model';
+import { ArchiviService } from '../archivi.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-archivi-utenti',
@@ -7,9 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchiviUtentiComponent implements OnInit {
 
-  constructor() { }
+  titleArchiviUtenti : string = "Archivi Utenti";
+  titleArchiviAcquistati : string = "Archivi Acquistati";
+
+  archivi : Archivio[];
+  archivio : Archivio;
+
+  constructor(private archiviService: ArchiviService,
+              private router: Router) { }
 
   ngOnInit() {
+    const getArchivi = this.archiviService.getArchivi();
+    getArchivi.subscribe(
+      (val) => {
+        console.log(val);
+        this.archivi = val;
+      },
+      (response) => {
+        console.log('Errore ' + response);
+        debugger;
+      }
+    )
+  }
+
+  onNuovoClick(){
+    this.router.navigate(['/archivi/nuovo']);
   }
 
 }

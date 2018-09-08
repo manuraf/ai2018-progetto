@@ -9,11 +9,11 @@ import { Archivio } from '../archivio.model';
 })
 export class ArchiviListComponent implements OnInit {
 
-  archivi : Archivio[] = [];
+  @Input('archivi') archivi : Archivio[];
   @Input('title') title: string;
 
   constructor() { }
 
   ngOnInit() {
   }
-  }
+}

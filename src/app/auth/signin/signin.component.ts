@@ -26,11 +26,11 @@ export class SigninComponent implements OnInit {
 
     signinUser.subscribe(
       (val) => {
-          localStorage.setItem('currentUser', JSON.stringify(val.access_token));
+          localStorage.setItem('currentUser', val.access_token);
           this.router.navigate(['/archivi']);
       },
       response => {
-        const errore = JSON.stringify(response.error.error_description);
+        const errore = response.error.error_description;
         this.authService.logout();
         this.renderedKo = true;
         this.responseMessage = errore;

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcquistiListComponent implements OnInit {
 
+  title : string = "Archivi";
+
   constructor() { }
 
   ngOnInit() {

@@ -1,5 +1,31 @@
 <div class="row">
     <div class="col-xs-12">
-        {{title}}
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{title}}
+            </div>
+            <div class="panel-body">
+              
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Rappr. Timestamp</th>
+                        <th scope="col">Rappr. Posizioni</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let archivio of archivi"> 
+                            <td >{{archivio.id}}</td>
+                            <td>{{archivio.rappr_timestamp}}</td>
+                            <td>{{archivio.rappr_posizioni}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+
+            </div>
+          </div>
     </div>
 </div>
+
