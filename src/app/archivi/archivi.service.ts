@@ -20,4 +20,16 @@ export class ArchiviService {
         );
     }
 
+    salvaArchivio(archivio: Archivio){
+        return this.httpClient.post<Archivio>(
+            this.baseUrl + '/archivio',
+            archivio,
+            {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
+
 }

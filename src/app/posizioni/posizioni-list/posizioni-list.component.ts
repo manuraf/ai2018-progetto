@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Posizione } from '../posizione.model';
 
@@ -9,10 +9,10 @@ import { Posizione } from '../posizione.model';
 })
 export class PosizioniListComponent implements OnInit {
 
-  archivi : Posizione[] = [];
+  @Input() posizioni : Posizione[] = [];
 
   constructor() { }
 
   ngOnInit() {
   }
-  }
+}

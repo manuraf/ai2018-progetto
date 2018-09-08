@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '../agm/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ArchiviListComponent } from './archivi/archivi-list/archivi-list.component';
 import { PosizioniListComponent } from './posizioni/posizioni-list/posizioni-list.component';
-import { PosizioneItemComponent } from './posizioni/posizioni-list//posizione-item/posizione-item.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +27,6 @@ import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.compon
     HeaderComponent,
     ArchiviListComponent,
     PosizioniListComponent,
-    PosizioneItemComponent,
     SignupComponent,
     SigninComponent,
     AcquistiListComponent,
@@ -39,7 +39,12 @@ import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.compon
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',
+      libraries: ['places', 'drawing', 'geometry'],
+    })
   ],
   providers: [AuthService, AuthGuard, ArchiviService],
   bootstrap: [AppComponent]

@@ -1,3 +1,55 @@
-<archivi-list [title]="title"></archivi-list>
+<div class="container">
+    <form (ngSubmit)="!dpIni.invalid && onSubmit()" #f="ngForm">
+        <div class="form-row" >
+            <div class="form-group col-md-6">
+                <label for="dataIni">Data dal</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="dd/mm/yyyy"
+                            id = "dataIni"
+                            name="dpIni"
+                            ngModel
+                            ngbDatepicker
+                            #dIni="ngbDatepicker"
+                            #dpIni= "ngModel">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="dIni.toggle()" type="button">
+                            <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                        </button>
+                    </div>
+                </div>
 
-<app-acquisti-map></app-acquisti-map>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dataFin">Data al</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="dd/mm/yyyy"
+                            id = "dataFin"
+                            name="dpFin"
+                            ngModel
+                            ngbDatepicker
+                            #dFin="ngbDatepicker">
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dFin.toggle()" type="button">
+                        <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <app-acquisti-map></app-acquisti-map>
+            </div>   
+        </div>
+    </form>
+
+    
+
+    
+
+    <div class="row" >
+        <div class="form-group col-md-12">
+            <archivi-list [title]="title"></archivi-list>
+        </div>
+    </div>
+</div>
+
+

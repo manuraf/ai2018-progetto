@@ -1,10 +1,16 @@
-<div class="row">
-    <div class="col-xs-12">
-        <button class="btn btn-success">Nuova Posizione</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <posizione-item></posizione-item>
-    </div>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Latitudine</th>
+        <th scope="col">Longitudine</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let posizione of posizioni"> 
+            <td >{{posizione.timestamp}}</td>
+            <td>{{posizione.latitudine}}</td>
+            <td>{{posizione.longitudine}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-acquisti',
@@ -6,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./acquisti-list.component.css']
 })
 export class AcquistiListComponent implements OnInit {
+
+  @ViewChild('f') searchForm : NgForm;
+
+  dataIni: Date;
+  dataFin: Date;
 
   title : string = "Archivi";
 

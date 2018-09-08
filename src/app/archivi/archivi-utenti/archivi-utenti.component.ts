@@ -34,7 +34,7 @@ export class ArchiviUtentiComponent implements OnInit {
   }
 
   onNuovoClick(){
-    this.router.navigate(['/archivi/nuovo']);
+    this.router.navigate(['/archivio']);
   }
 
 }
