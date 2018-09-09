@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <h1>Benvenuto</h1>
+  </div>
+  <div class="row" *ngIf="!authService.isAuthenticated()">
+      <button class="btn btn-primary" (click)="onLogin()">
+        Login
+      </button>
+      <button class="btn btn-primary" (click)="onRegistrati()">
+          Registrati
+      </button>
+  </div>
+</div>

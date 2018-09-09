@@ -13,24 +13,35 @@ export class ArchiviUtentiComponent implements OnInit {
   titleArchiviUtenti : string = "Archivi Utenti";
   titleArchiviAcquistati : string = "Archivi Acquistati";
 
-  archivi : Archivio[];
+  archiviUtente : Archivio[];
+  archiviAcquistati: Archivio[];
   archivio : Archivio;
 
   constructor(private archiviService: ArchiviService,
               private router: Router) { }
 
   ngOnInit() {
-    const getArchivi = this.archiviService.getArchivi();
+    const getArchivi = this.archiviService.getArchiviUtente();
     getArchivi.subscribe(
       (val) => {
         console.log(val);
-        this.archivi = val;
+        this.archiviUtente = val;
       },
       (response) => {
         console.log('Errore ' + response);
-        debugger;
       }
-    )
+    );
+
+    const getArchiviAcquistati = this.archiviService.getArchiviAcquistati();
+    getArchivi.subscribe(
+      (val) => {
+        console.log(val);
+        this.archiviAcquistati = val;
+      },
+      (response) => {
+        console.log('Errore ' + response);
+      }
+    );
   }
 
   onNuovoClick(){

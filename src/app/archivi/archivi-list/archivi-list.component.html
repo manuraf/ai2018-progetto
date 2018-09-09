@@ -10,6 +10,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Rappr. Timestamp</th>
                 <th scope="col">Rappr. Posizioni</th>
+                <th scope="col">Id</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,19 @@
                     <td >{{archivio.id}}</td>
                     <td>{{archivio.rappr_timestamp}}</td>
                     <td>{{archivio.rappr_posizioni}}</td>
+                    <td>
+                        <button 
+                            *ngIf="posizione"
+                            class="btn btn-primary" 
+                            (click)="onVisualizzaPosizioni(archivio)">
+                            Posizioni
+                        </button>
+                        <button 
+                            class="btn btn-primary" 
+                            (click)="onElimina(archivio)">
+                            Elimina
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

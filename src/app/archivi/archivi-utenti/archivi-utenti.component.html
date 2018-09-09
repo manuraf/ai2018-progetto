@@ -8,13 +8,16 @@
 
     <div class="row" >
         <archivi-list 
-            [archivi]="archivi"
+            [posizione]="true"
+            [archivi]="archiviUtente"
             [title]="titleArchiviUtenti">
         </archivi-list>
     </div>
 
     <div class="row">
         <archivi-list
+            [posizione]="true"
+            [archivi]="archiviAcquistati"
             [title]="titleArchiviAcquistati">
         </archivi-list>
     </div>

@@ -10,9 +10,19 @@ export class ArchiviService {
 
     constructor(private httpClient: HttpClient){}
 
-    getArchivi(){
+    getArchiviUtente(){
         return this.httpClient.get<Archivio[]>(
             this.baseUrl + '/archivio',
+            {
+              headers: new HttpHeaders()
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
+
+    getArchiviAcquistati(){
+        return this.httpClient.get<Archivio[]>(
+            this.baseUrl + '/archivio/acquistati',
             {
               headers: new HttpHeaders()
                 .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))

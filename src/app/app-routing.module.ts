@@ -7,9 +7,11 @@ import { AcquistiListComponent } from "./acquisti/acquisti-list/acquisti-list.co
 import { AuthGuard } from "./auth/auth-guard.service";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ArchiviItemComponent } from "./archivi/archivi-item/archivi-item.component";
+import { HomeComponent } from "./home/home.component";
 
 const appRoutes: Routes = [
-    { path: '', component: SigninComponent},
+    { path: '', component: HomeComponent},
+    { path: 'login', component: SigninComponent},
     { path: 'signup', component: SignupComponent},
     { path: 'archivi', component: ArchiviUtentiComponent, canActivate: [AuthGuard]},
     { path: 'archivio', component: ArchiviItemComponent, canActivate: [AuthGuard]},

@@ -20,6 +20,8 @@ import { ArchiviUtentiComponent } from './archivi/archivi-utenti/archivi-utenti.
 import { AcquistiMapComponent } from './acquisti/acquisti-map/acquisti-map.component';
 import { ArchiviService } from './archivi/archivi.service';
 import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.component';
+import { HomeComponent } from './home/home.component';
+import { PosizioniModalComponent } from './posizioni/posizioni-modal/posizioni-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,19 +35,22 @@ import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.compon
     PageNotFoundComponent,
     ArchiviUtentiComponent,
     AcquistiMapComponent,
-    ArchiviItemComponent
+    ArchiviItemComponent,
+    HomeComponent,
+    PosizioniModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule,
+    NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',
       libraries: ['places', 'drawing', 'geometry'],
     })
   ],
+  entryComponents:[PosizioniModalComponent],
   providers: [AuthService, AuthGuard, ArchiviService],
   bootstrap: [AppComponent]
 })
