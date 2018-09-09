@@ -5,4 +5,13 @@
       [polygonOptions]='managerOptions.polygonOptions' 
       [drawingMode]='managerOptions.drawingMode'>
     </agm-drawing-manager>
+
+    <agm-circle 
+              [latitude]="lat"
+              [longitude]="lng"
+              [circleDraggable]="true"
+              [editable]="true"
+              [fillColor]="red"
+              [radius]="10">
+    </agm-circle>
 </agm-map>

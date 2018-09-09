@@ -53,4 +53,14 @@ export class AuthService {
         this.token = null;
         this.router.navigate(['/']);
     }
+
+    getUsernameUtenti(){
+        return this.httpClient.get<string[]>(
+            this.baseUrl + '/utente',
+            {
+              headers: new HttpHeaders()
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
 }

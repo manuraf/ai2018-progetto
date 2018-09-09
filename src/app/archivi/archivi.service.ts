@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Archivio } from "./archivio.model";
+import { Ricerca } from "../acquisti/ricerca.model";
 
 
 @Injectable()
@@ -47,6 +48,20 @@ export class ArchiviService {
             this.baseUrl + '/archivio/' + archivio.id,
             {
               headers: new HttpHeaders()
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
+
+    getArchiviByMap(from: Date, to: Date){
+        const ricerca = new Ricerca(from,to);
+
+        return this.httpClient.post<Archivio[]>(
+            this.baseUrl + '/archivio/byMap',
+            ricerca,
+            {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
                 .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
             }
         );

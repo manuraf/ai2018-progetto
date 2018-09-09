@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ArchiviService } from '../../archivi/archivi.service';
+import { Archivio } from '../../archivi/archivio.model';
 declare const google: any;
 
 @Component({
@@ -13,6 +15,8 @@ export class AcquistiMapComponent implements OnInit {
 
   polygon: any;
 
+  archivi: Archivio[];
+
   managerOptions = {
     drawingControl: true,
     drawingControlOptions: {
@@ -25,9 +29,20 @@ export class AcquistiMapComponent implements OnInit {
     drawingMode: "polygon"
   };
 
-  constructor() { }
+  constructor(private archiviService: ArchiviService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const getArchiviByMap = this.archiviService.getArchiviByMap(null,null);
+
+    getArchiviByMap.subscribe(
+      (val) => {
+        this.archivi = val;
+      },
+      (response) => {
+        console.log('Errore ' + response);
+      }
+    );
+  }
 
   polygonCreated($event) {
 
