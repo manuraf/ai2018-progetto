@@ -42,4 +42,14 @@ export class ArchiviService {
         );
     }
 
+    eliminaArchivio(archivio: Archivio){
+        return this.httpClient.delete<any>(
+            this.baseUrl + '/archivio/' + archivio.id,
+            {
+              headers: new HttpHeaders()
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
+
 }

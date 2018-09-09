@@ -1,24 +1,31 @@
-<div class="container">
+
     <div class="row" >
-        <button (click)="onNuovoClick()"
-            class="btn btn-primary">
-            Nuovo
-        </button>
+        <div class="col col-md-12 ">
+            <button (click)="onNuovoClick()"
+                class="btn btn-primary">
+                Nuovo
+            </button>
+        </div>
     </div>
 
     <div class="row" >
+            <div class="col col-md-12">
         <archivi-list 
-            [posizione]="true"
+            [renderedPosizione]="true"
+            [renderedAcquisti]="true"
             [archivi]="archiviUtente"
             [title]="titleArchiviUtenti">
         </archivi-list>
     </div>
+</div>
 
     <div class="row">
+            <div class="col col-md-12">
         <archivi-list
-            [posizione]="true"
+            [renderedPosizione]="true"
             [archivi]="archiviAcquistati"
             [title]="titleArchiviAcquistati">
         </archivi-list>
     </div>
 </div>
+

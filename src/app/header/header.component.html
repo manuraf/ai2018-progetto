@@ -1,27 +1,26 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="#" class="navbar-brand">Data Marketplace</a>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active" *ngIf="!authService.isAuthenticated()">
-          <a routerLink="/">Home</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li routerLinkActive="active" class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/">Home</a>
         </li>
-        <li routerLinkActive="active" *ngIf="authService.isAuthenticated()">
-          <a routerLink="/archivi">Archivi</a>
+        <li routerLinkActive="active" class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/archivi">Archivi</a>
         </li>
-        <li routerLinkActive="active" *ngIf="authService.isAuthenticated()">
-          <a routerLink="/acquista">Acquista</a>
+        <li routerLinkActive="active" class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/acquista">Acquista</a>
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav">
           <ng-template [ngIf]="authService.isAuthenticated()">
-            <li><a style="cursor:pointer;" (click)="onLogout()">Logout</a></li>
+            <li><a style="cursor:pointer;" class="nav-item" (click)="onLogout()">Logout</a></li>
           </ng-template>
         </ul>
     </div>
-  </div>
 </nav>

@@ -4,6 +4,7 @@ import { Archivio } from '../archivio.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PosizioniListComponent } from '../../posizioni/posizioni-list/posizioni-list.component';
 import { PosizioniModalComponent } from '../../posizioni/posizioni-modal/posizioni-modal.component';
+import { ArchiviService } from '../archivi.service';
 
 @Component({
   selector: 'archivi-list',
@@ -14,9 +15,11 @@ export class ArchiviListComponent implements OnInit {
 
   @Input('archivi') archivi : Archivio[];
   @Input('title') title: string;
-  @Input() posizione: boolean;
+  @Input() renderedPosizione: boolean = false;
+  @Input() renderedAcquisti: boolean = false;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+              private archiviService: ArchiviService) { }
 
   ngOnInit() {
   }
@@ -24,11 +27,19 @@ export class ArchiviListComponent implements OnInit {
   onVisualizzaPosizioni(archivio: Archivio){
 
     const modelRef = this.modalService.open(PosizioniModalComponent);
-    modelRef.componentInstance.name = 'World';
-   // modelRef.componentInstance.posizioni = archivio.posizioni;
+     modelRef.componentInstance.archivio = archivio;
   }
 
   onElimina(archivio: Archivio){
+    const eliminaArchivio = this.archiviService.eliminaArchivio(archivio);
 
+    eliminaArchivio.subscribe(
+      (val) => {
+        archivio.acquistabile = false;
+      },
+      (response) => {
+        console.log('Errore ' + response);
+      }
+    );
   }
 }

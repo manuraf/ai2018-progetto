@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+  <div class="col-md-4 offset-md-4">
     <form (ngSubmit)="onSignup(f)" #f="ngForm">
       <div class="form-group">
         <label for="username">Username</label>
@@ -15,7 +15,7 @@
       <div class="alert alert-danger" role="alert" *ngIf="renderedOk">
         {{responseMessage}}
       </div>
-      <button class="btn btn-primary" type="submit">Sign up</button>
+      <button class="btn btn-primary btn-block" type="submit">Registrati</button>
     </form>
   </div>
 </div>

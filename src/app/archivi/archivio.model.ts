@@ -2,6 +2,7 @@ import { Posizione } from "../posizioni/posizione.model";
 
 export class Archivio {
     id: number;
+    acquisti: number;
     rappr_timestamp: string;
 	rappr_posizioni: string;
     acquistabile: boolean;

@@ -33,9 +33,8 @@ export class ArchiviUtentiComponent implements OnInit {
     );
 
     const getArchiviAcquistati = this.archiviService.getArchiviAcquistati();
-    getArchivi.subscribe(
+    getArchiviAcquistati.subscribe(
       (val) => {
-        console.log(val);
         this.archiviAcquistati = val;
       },
       (response) => {

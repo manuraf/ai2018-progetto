@@ -31,7 +31,6 @@ export class SigninComponent implements OnInit {
       },
       response => {
         const errore = response.error.error_description;
-        this.authService.logout();
         this.renderedKo = true;
         this.responseMessage = errore;
       });
