@@ -27,7 +27,7 @@ export class ArchiviListComponent implements OnInit {
   onVisualizzaPosizioni(archivio: Archivio){
 
     const modelRef = this.modalService.open(PosizioniModalComponent);
-     modelRef.componentInstance.archivio = archivio;
+    modelRef.componentInstance.archivio = archivio;
   }
 
   onElimina(archivio: Archivio){

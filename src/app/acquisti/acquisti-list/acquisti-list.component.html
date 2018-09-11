@@ -1,65 +1,96 @@
 <div class="container">
-    <form (ngSubmit)="!dpIni.invalid && onSubmit()" #f="ngForm">
-        <div class="form-row" >
-            <div class="form-group col-md-4">
-                <label for="dataIni">Data dal</label>
-                <div class="input-group">
-                    <input class="form-control" placeholder="dd/mm/yyyy"
-                            id = "dataIni"
-                            name="from"
-                            ngModel
-                            ngbDatepicker
-                            #from="ngbDatepicker"
-                            #from= "ngModel">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" (click)="from.toggle()" type="button">
-                            <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row" >
+                    <div class="form-group col-md-4">
+                        <label for="from">Data dal</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                    id = "from" (ngModelChange)="onChangeFrom($event)"
+                                    name="from"
+                                    ngModel
+                                    ngbDatepicker
+                                    #from="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="from.toggle()" type="button">
+                                    <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <ngb-timepicker [(ngModel)]="timeFrom" (ngModelChange)="onChangeTimeFrom($event)"
+                            name="timeFrom" required>
+                        </ngb-timepicker>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="utenti">Utente</label>
+                        <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onChange($event)"
+                            [options]="utenti" [(ngModel)]="utentiSelected" name="utentiSelected" >
+                        </ss-multiselect-dropdown>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="dataFin">Data al</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                    id = "to"
+                                    name="to"
+                                    ngModel
+                                    ngbDatepicker
+                                    #to="ngbDatepicker">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="to.toggle()" type="button">
+                                <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <ngb-timepicker [(ngModel)]="timeTo" (ngModelChange)="onChangeTimeFrom($event)"
+                            name="timeTo" required>
+                        </ngb-timepicker>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            Cerca
                         </button>
                     </div>
                 </div>
             </div>
-
-            <div class="form-group col-md-4">
-                <ngb-timepicker [(ngModel)]="timeFrom" 
-                    name="timeFrom" required>
-                </ngb-timepicker>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for="utenti">Utente</label>
-                <select multiple id="utenti" class="form-control" ngModel name="utentiSelected">
-                    <option value="">-- Qualsiasi --</option>
-                    <option *ngFor="let utente of utenti">{{utente}}</option> 
-                </select>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for="dataFin">Data al</label>
-                <div class="input-group">
-                    <input class="form-control" placeholder="dd/mm/yyyy"
-                            id = "to"
-                            name="to"
-                            ngModel
-                            ngbDatepicker
-                            #to="ngbDatepicker">
-                    <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" (click)="to.toggle()" type="button">
-                        <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                    </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group col-md-4">
-                <ngb-timepicker [(ngModel)]="timeTo" 
-                    name="timeTo" required>
-                </ngb-timepicker>
             </div>
 
             <div class="form-group col-md-12">
-                <app-acquisti-map></app-acquisti-map>
-            </div>   
-        </div>
+                    <agm-map  #agmMap [latitude]="lat" [longitude]="lng" 
+                        (mapClick)="onChooseLocation($event)"
+                        (boundsChange)="boundsChange($event)">
+                        <agm-drawing-manager (polygonComplete)="polygonCreated($event)" 
+                            [drawingControl]="managerOptions.drawingControl" 
+                            [drawingControlOptions]="managerOptions.drawingControlOptions"
+                            [polygonOptions]='managerOptions.polygonOptions' 
+                            [drawingMode]='managerOptions.drawingMode'>
+                        </agm-drawing-manager>
+                    
+                        <agm-circle *ngFor="let data of circle"
+                            [latitude]="data.lat" [longitude]="data.lng" 
+                            [radius]="data.radius"
+                            [fillColor]="data.color"
+                            [circleDraggable]="true"
+                            [editable]="false">
+                        </agm-circle>
+                    </agm-map>
+            </div> 
+
+            <div class="form-group col-md-12">
+                <button class="btn btn-primary btn-block" (click)="onAcquista()">
+                    Acquista
+                </button>
+            </div>
+        
     </form>
 
     

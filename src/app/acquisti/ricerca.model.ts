@@ -1,10 +1,11 @@
 export class Ricerca {
     from: Date;
     to: Date;
-    utenti: Number[];
+    utenti: string[];
 
-    constructor(from: Date, to: Date){
+    constructor(from: Date, to: Date, utenti: string[]){
         this.from = from;
         this.to = to;
+        this.utenti = utenti;
     }
 }

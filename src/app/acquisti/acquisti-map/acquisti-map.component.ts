@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ArchiviService } from '../../archivi/archivi.service';
-import { Archivio } from '../../archivi/archivio.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { Posizione } from '../../posizioni/posizione.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AcquistiModalComponent } from '../acquisti-modal/acquisti-modal.component';
 declare const google: any;
 
 @Component({
@@ -10,13 +11,13 @@ declare const google: any;
 })
 export class AcquistiMapComponent implements OnInit {
 
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 10;
+  lng: number = 10;
 
   polygon: any;
-
-  archivi: Archivio[];
-
+  @Input() circle: any;
+  @Input() paths: any;
+  
   managerOptions = {
     drawingControl: true,
     drawingControlOptions: {
@@ -28,24 +29,15 @@ export class AcquistiMapComponent implements OnInit {
     },
     drawingMode: "polygon"
   };
+  
 
-  constructor(private archiviService: ArchiviService) { }
+  constructor(private modalService: NgbModal) {}
 
-  ngOnInit() {
-    const getArchiviByMap = this.archiviService.getArchiviByMap(null,null);
-
-    getArchiviByMap.subscribe(
-      (val) => {
-        this.archivi = val;
-      },
-      (response) => {
-        console.log('Errore ' + response);
-      }
-    );
-  }
+  ngOnInit() {}
 
   polygonCreated($event) {
-
+    console.log('polygonCreated');
+    console.log(this.polygon);
     if (this.polygon) {
       this.polygon.setMap(null);
     }
@@ -54,8 +46,10 @@ export class AcquistiMapComponent implements OnInit {
     google.maps.event.addListener(this.polygon, 'coordinates_changed', function (index, obj) {
       // Polygon object: yourPolygon
       console.log('coordinates_changed');
+      console.log(this.polygon);
     });
-
+    this.paths = this.getPaths();
+    console.log(this.paths);
   }
 
   getPaths() {

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '../agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,6 +23,7 @@ import { ArchiviService } from './archivi/archivi.service';
 import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.component';
 import { HomeComponent } from './home/home.component';
 import { PosizioniModalComponent } from './posizioni/posizioni-modal/posizioni-modal.component';
+import { AcquistiModalComponent } from './acquisti/acquisti-modal/acquisti-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,20 +39,22 @@ import { PosizioniModalComponent } from './posizioni/posizioni-modal/posizioni-m
     AcquistiMapComponent,
     ArchiviItemComponent,
     HomeComponent,
-    PosizioniModalComponent
+    PosizioniModalComponent,
+    AcquistiModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    MultiselectDropdownModule,
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',
       libraries: ['places', 'drawing', 'geometry'],
     })
   ],
-  entryComponents:[PosizioniModalComponent],
+  entryComponents:[PosizioniModalComponent, AcquistiModalComponent],
   providers: [AuthService, AuthGuard, ArchiviService],
   bootstrap: [AppComponent]
 })

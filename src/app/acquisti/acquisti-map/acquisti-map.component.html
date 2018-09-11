@@ -6,12 +6,11 @@
       [drawingMode]='managerOptions.drawingMode'>
     </agm-drawing-manager>
 
-    <agm-circle 
-              [latitude]="lat"
-              [longitude]="lng"
-              [circleDraggable]="true"
-              [editable]="true"
-              [fillColor]="red"
-              [radius]="10">
-    </agm-circle>
+    <agm-circle *ngFor="let data of circle"
+      [latitude]="data.lat" [longitude]="data.lng" 
+      [radius]="data.radius"
+      [fillColor]="data.color"
+      [circleDraggable]="true"
+      [editable]="false">
+  </agm-circle>
 </agm-map>

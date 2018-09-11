@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Archivio } from "./archivio.model";
 import { Ricerca } from "../acquisti/ricerca.model";
+import { Posizione } from "../posizioni/posizione.model";
 
 
 @Injectable()
@@ -53,10 +54,10 @@ export class ArchiviService {
         );
     }
 
-    getArchiviByMap(from: Date, to: Date){
-        const ricerca = new Ricerca(from,to);
+    getArchiviByMap(from: Date, to: Date, utenti: string[]){
 
-        return this.httpClient.post<Archivio[]>(
+        const ricerca = new Ricerca(from,to,utenti);
+        return this.httpClient.post<Posizione[]>(
             this.baseUrl + '/archivio/byMap',
             ricerca,
             {
