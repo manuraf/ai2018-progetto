@@ -54,9 +54,9 @@ export class ArchiviService {
         );
     }
 
-    getArchiviByMap(from: Date, to: Date, utenti: string[]){
+    getArchiviByMap(from: Date, to: Date, utenti: string[], points){
 
-        const ricerca = new Ricerca(from,to,utenti);
+        const ricerca = new Ricerca(from,to,utenti,points);
         return this.httpClient.post<Posizione[]>(
             this.baseUrl + '/archivio/byMap',
             ricerca,

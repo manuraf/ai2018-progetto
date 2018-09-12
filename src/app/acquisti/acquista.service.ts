@@ -10,9 +10,9 @@ export class AcquistaService {
 
     constructor(private httpClient: HttpClient){}
 
-    acquistaArchivi(archivi: number[]){
+    getArchiviWithAcquistati(archivi: number[]){
         return this.httpClient.post<any>(
-            this.baseUrl + '/acquisti',
+            this.baseUrl + '/acquistati',
             archivi,
             {
               headers: new HttpHeaders()

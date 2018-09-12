@@ -1,5 +1,4 @@
 <div class="container">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="card">
             <div class="card-body">
                 <div class="form-row" >
@@ -7,7 +6,7 @@
                         <label for="from">Data dal</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="dd/mm/yyyy"
-                                    id = "from" (ngModelChange)="onChangeFrom($event)"
+                                    id = "from" (ngModelChange)="onDataChange()"
                                     name="from"
                                     ngModel
                                     ngbDatepicker
@@ -21,14 +20,14 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <ngb-timepicker [(ngModel)]="timeFrom" (ngModelChange)="onChangeTimeFrom($event)"
+                        <ngb-timepicker [(ngModel)]="timeFrom" (ngModelChange)="onDataChange()"
                             name="timeFrom" required>
                         </ngb-timepicker>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="utenti">Utente</label>
-                        <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onChange($event)"
+                        <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onDataChange()"
                             [options]="utenti" [(ngModel)]="utentiSelected" name="utentiSelected" >
                         </ss-multiselect-dropdown>
                     </div>
@@ -37,7 +36,7 @@
                         <label for="dataFin">Data al</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="dd/mm/yyyy"
-                                    id = "to"
+                                    id = "to" (ngModelChange)="onDataChange()"
                                     name="to"
                                     ngModel
                                     ngbDatepicker
@@ -51,21 +50,21 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <ngb-timepicker [(ngModel)]="timeTo" (ngModelChange)="onChangeTimeFrom($event)"
+                        <ngb-timepicker [(ngModel)]="timeTo" (ngModelChange)="onDataChange()"eclip
                             name="timeTo" required>
                         </ngb-timepicker>
                     </div>
-                    <div class="form-group col-md-12">
+                    <!-- <div class="form-group col-md-12">
                         <button class="btn btn-primary btn-block" type="submit">
                             Cerca
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             </div>
 
             <div class="form-group col-md-12">
-                    <agm-map  #agmMap [latitude]="lat" [longitude]="lng" 
+                    <agm-map  #agmMap [latitude]="45.0735886" [longitude]="7.6055662" 
                         (mapClick)="onChooseLocation($event)"
                         (boundsChange)="boundsChange($event)">
                         <agm-drawing-manager (polygonComplete)="polygonCreated($event)" 
@@ -90,8 +89,6 @@
                     Acquista
                 </button>
             </div>
-        
-    </form>
 
     
     <!-- <div class="row" >

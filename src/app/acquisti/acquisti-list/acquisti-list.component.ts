@@ -5,6 +5,8 @@ import { AuthService } from '../../auth/auth.service';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { ArchiviService } from '../../archivi/archivi.service';
 import { Posizione } from '../../posizioni/posizione.model';
+import { AcquistaService } from '../acquista.service';
+import { Archivio } from '../../archivi/archivio.model';
 declare const google: any;
 
 @Component({
@@ -14,8 +16,6 @@ declare const google: any;
 })
 export class AcquistiListComponent implements OnInit {
 
-  @ViewChild('f') searchForm : NgForm;
-
   from: Date;
   to: Date;
   timeFrom: NgbTimeStruct;
@@ -24,6 +24,7 @@ export class AcquistiListComponent implements OnInit {
   utenti: IMultiSelectOption[];
   utentiSelected: string[];
   posizioni: Posizione[] = [];
+  archiviDaAcquistare: Archivio[];
   
   polygon: any;
   circle: any;
@@ -40,8 +41,8 @@ export class AcquistiListComponent implements OnInit {
       drawingModes: ['polygon']
     },
     polygonOptions: {
-      draggable: true,
-      editable: true
+      draggable: false,
+      editable: false
     },
     drawingMode: "polygon"
   };
@@ -61,7 +62,8 @@ export class AcquistiListComponent implements OnInit {
 };
 
   constructor(private authService: AuthService,
-              private archiviService: ArchiviService) { }
+              private archiviService: ArchiviService,
+              private acquistiService: AcquistaService) { }
 
   ngOnInit() {
     const getUsernameUtenti = this.authService.getUsernameUtenti();
@@ -80,55 +82,39 @@ export class AcquistiListComponent implements OnInit {
       }
     );
 
-    // this.agmMap.mapReady.subscribe(map => {
-    //   console.log(map);
-    // });
   }
 
   boundsChange(event) {
-    console.log(event.getNorthEast().lat());
-    console.log(event.getNorthEast().lng());
-    console.log(event.getSouthWest().lat());
-    console.log(event.getSouthWest().lng());
+
+    this.paths = [
+      {lat:event.getNorthEast().lat(),lng:event.getSouthWest().lng()},
+      {lat:event.getNorthEast().lat(),lng:event.getNorthEast().lng()},
+      {lat:event.getSouthWest().lat(),lng:event.getNorthEast().lng()},
+      {lat:event.getSouthWest().lat(),lng:event.getSouthWest().lng()}
+    ];
+
+    this.onDataChange();
   }
 
-  onChange() {
-    //console.log(this.utentiSelected);
-    
-  }
-
-  onChangeFrom(event) {
-    console.log(event);
-    
-  }
-
-  onChangeTimeFrom(event) {
-    console.log(event);
-    
-  }
-
-  onSubmit(form: NgForm){
-    
-    
-    //console.log(this.agmMap.fitBounds);
+  onDataChange(){
    
     let from = null;
-    if(form.value.from && form.value.timeFrom) {
+    if(this.from && this.timeFrom) {
       from = new Date(
-        form.value.from.year,form.value.from.month,form.value.from.day,
-        form.value.timeFrom.hour,form.value.timeFrom.minute,form.value.timeFrom.second
+        this.from.getFullYear(),this.from.getMonth(),this.from.getDay(),
+        this.timeFrom.hour,this.timeFrom.minute,this.timeFrom.second
       );
     }
 
     let to = null;
-    if(form.value.to && form.value.timeTo) {
+    if(this.to && this.timeTo) {
       to = new Date(
-        form.value.to.year,form.value.to.month,form.value.to.day,
-        form.value.timeTo.hour,form.value.timeTo.minute,form.value.timeTo.second
+        this.to.getFullYear(),this.to.getMonth(),this.to.getDay(),
+        this.timeTo.hour,this.timeTo.minute,this.timeTo.second
       );
     }
-
-    const getArchiviByMap = this.archiviService.getArchiviByMap(from,to,this.utentiSelected);
+    
+    const getArchiviByMap = this.archiviService.getArchiviByMap(from,to,this.utentiSelected,this.paths);
 
     getArchiviByMap.subscribe(
       (val) => {
@@ -139,10 +125,12 @@ export class AcquistiListComponent implements OnInit {
           this.circle.push({
             lat: posizione.latitudine, 
             lng: posizione.longitudine, 
-            radius: 2000, 
+            radius: 6000, 
             color: this.colorsUtenti[posizione.archivio.utente]
           });
         })
+
+        console.log(this.posizioni);
       },
       (response) => {
         console.log('Errore ' + response);
@@ -162,6 +150,8 @@ export class AcquistiListComponent implements OnInit {
       console.log(this.polygon);
     });
     this.paths = this.getPaths();
+
+    this.onDataChange();
   }
 
   getPaths() {
@@ -220,26 +210,32 @@ export class AcquistiListComponent implements OnInit {
   };
 
   onAcquista(){
-    console.log(this.paths);
-    if(this.paths){
-      /* devo fare una nuova ricerca */
-    } else {
-      /* ho già le posizioni, quindi mi ricavo subito gli archivi da acquistare */
-      //this.ricavoArchiviAndOpenDialog();
-    }
+    
+    /* ho già le posizioni, quindi mi ricavo subito gli archivi da acquistare */
+    /* ricavo archivi dalle posizioni selezionate e apro la dialog di conferma */
+    let uniques = new Set();
+
+
+    this.posizioni.map( p => {
+      uniques.add(p.archivio.id)
+    });
+
+    console.log(Array.from(uniques));
+    const getArchiviWithAcquistati = this.acquistiService.getArchiviWithAcquistati(Array.from(uniques));
+
+    getArchiviWithAcquistati.subscribe(
+      (val) => {
+        this.archiviDaAcquistare =  val;
+        console.log(val);
+      },
+      (response) => {
+        console.log('Errore ' + response);
+      }
+    );
+
+    // const modelRef = this.modalService.open(AcquistiModalComponent);
+    // modelRef.componentInstance.archivi = archivi;
   }
-
-  // private ricavoArchiviAndOpenDialog(){
-  //   /* ricavo archivi dalle posizioni selezionate e apro la dialog di conferma */
-  //   let uniques = new Set();
-
-  //   this.posizioni.map( p => {
-  //     uniques.add(p.archivio.id)
-  //   });
-
-  //   const modelRef = this.modalService.open(AcquistiModalComponent);
-  //   modelRef.componentInstance.archivi = archivi;
-  // }
 
   // onConfermaAcquista(){
   //   /* acquisto archivi confermati tramite la dialog */

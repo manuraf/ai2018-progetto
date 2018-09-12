@@ -24,6 +24,7 @@ import { ArchiviItemComponent } from './archivi/archivi-item/archivi-item.compon
 import { HomeComponent } from './home/home.component';
 import { PosizioniModalComponent } from './posizioni/posizioni-modal/posizioni-modal.component';
 import { AcquistiModalComponent } from './acquisti/acquisti-modal/acquisti-modal.component';
+import { AcquistaService } from './acquisti/acquista.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { AcquistiModalComponent } from './acquisti/acquisti-modal/acquisti-modal
     })
   ],
   entryComponents:[PosizioniModalComponent, AcquistiModalComponent],
-  providers: [AuthService, AuthGuard, ArchiviService],
+  providers: [AuthService, AuthGuard, ArchiviService, AcquistaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
