@@ -6,6 +6,7 @@ export class Archivio {
     rappr_timestamp: string;
 	rappr_posizioni: string;
     acquistabile: boolean;
+    acquistato: boolean;
     utente: string;
     
     posizioni: Posizione[];

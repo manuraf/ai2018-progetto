@@ -13,6 +13,7 @@
               <th scope="col">Id</th>
               <th scope="col">Rappr. Timestamp</th>
               <th scope="col">Rappr. Posizioni</th>
+              <th scope="col">Note</th>
               </tr>
           </thead>
           <tbody>
@@ -20,10 +21,16 @@
                   <td >{{archivio.id}}</td>
                   <td>{{archivio.rappr_timestamp}}</td>
                   <td>{{archivio.rappr_posizioni}}</td>
+                  <td>{{archivio.acquistato}}</td>
               </tr>
           </tbody>
       </table>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+        Annulla
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onConfermaAcquista()">
+        Conferma
+    </button>
   </div>

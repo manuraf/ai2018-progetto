@@ -21,4 +21,16 @@ export class AcquistaService {
             }
         );
     }
+
+    acquistaArchivi(archivi: number[]){
+        return this.httpClient.post<any>(
+            this.baseUrl + '/acquisti',
+            archivi,
+            {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+            }
+        );
+    }
 }

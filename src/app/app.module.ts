@@ -25,6 +25,9 @@ import { HomeComponent } from './home/home.component';
 import { PosizioniModalComponent } from './posizioni/posizioni-modal/posizioni-modal.component';
 import { AcquistiModalComponent } from './acquisti/acquisti-modal/acquisti-modal.component';
 import { AcquistaService } from './acquisti/acquista.service';
+import { GoogleChartsBaseService } from './google/google.service';
+import { DatatableComponent } from './google/datatable/datatable.component';
+import { GoogleDatatableService } from './google/googleDatatable.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { AcquistaService } from './acquisti/acquista.service';
     ArchiviItemComponent,
     HomeComponent,
     PosizioniModalComponent,
-    AcquistiModalComponent
+    AcquistiModalComponent,
+    DatatableComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,7 @@ import { AcquistaService } from './acquisti/acquista.service';
     })
   ],
   entryComponents:[PosizioniModalComponent, AcquistiModalComponent],
-  providers: [AuthService, AuthGuard, ArchiviService, AcquistaService],
+  providers: [AuthService, AuthGuard, ArchiviService, AcquistaService, GoogleChartsBaseService, GoogleDatatableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

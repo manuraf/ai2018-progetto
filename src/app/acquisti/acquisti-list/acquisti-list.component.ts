@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../auth/auth.service';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { ArchiviService } from '../../archivi/archivi.service';
 import { Posizione } from '../../posizioni/posizione.model';
 import { AcquistaService } from '../acquista.service';
 import { Archivio } from '../../archivi/archivio.model';
+import { AcquistiModalComponent } from '../acquisti-modal/acquisti-modal.component';
 declare const google: any;
 
 @Component({
@@ -31,6 +32,7 @@ export class AcquistiListComponent implements OnInit {
   paths: any;
 
   title : string = "Archivi";
+  renderedAcquista : boolean = false;
 
   colors: String[] = ['red','yellow','blue','green','grey']
   colorsUtenti: [{[key:string]:string}] = [{}];
@@ -63,7 +65,8 @@ export class AcquistiListComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private archiviService: ArchiviService,
-              private acquistiService: AcquistaService) { }
+              private acquistiService: AcquistaService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     const getUsernameUtenti = this.authService.getUsernameUtenti();
@@ -130,7 +133,7 @@ export class AcquistiListComponent implements OnInit {
           });
         })
 
-        console.log(this.posizioni);
+        this.renderedAcquista = this.posizioni.length > 0;
       },
       (response) => {
         console.log('Errore ' + response);
@@ -227,28 +230,16 @@ export class AcquistiListComponent implements OnInit {
       (val) => {
         this.archiviDaAcquistare =  val;
         console.log(val);
+
+        const modelRef = this.modalService.open(AcquistiModalComponent);
+        modelRef.componentInstance.archivi = this.archiviDaAcquistare;
       },
       (response) => {
         console.log('Errore ' + response);
       }
     );
 
-    // const modelRef = this.modalService.open(AcquistiModalComponent);
-    // modelRef.componentInstance.archivi = archivi;
+
   }
-
-  // onConfermaAcquista(){
-  //   /* acquisto archivi confermati tramite la dialog */
-  //   const acquistaArchivi = this.acquistaService.acquistaArchivi(uniques);
-
-  //   acquistaArchivi.subscribe(
-  //     (val) => {
-  //       console.log(val);
-  //     },
-  //     (response) => {
-  //       console.log('Errore ' + response);
-  //     }
-  //   );
-  // }
 
 }
