@@ -24,14 +24,14 @@
                         <button 
                             *ngIf="renderedPosizione"
                             class="btn btn-primary" 
-                            (click)="onVisualizzaPosizioni(archivio)">
-                            Posizioni
+                            title="Visualizza dettaglio e lista posizioni"
+                            (click)="onVisualizzaPosizioni(archivio)">                          
                         </button>
                         <button 
                             *ngIf="archivio.acquistabile"
-                            class="btn btn-primary" 
-                            (click)="onElimina(archivio)">
-                            Elimina
+                            class="btn btn-primary"
+                            title="Elimina archivio" 
+                            (click)="onElimina(archivio)">                            
                         </button>
                     </td>
                 </tr>

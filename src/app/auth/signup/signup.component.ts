@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
@@ -9,18 +9,21 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-    renderedKo: boolean = false;
-    renderedOk: boolean = false;
-    responseMessage: string;
+  @ViewChild('f') form: NgForm;
+
+  renderedKo: boolean = false;
+  renderedOk: boolean = false;
+  responseMessage: string;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  onSignup(form: NgForm) {
-    const username = form.value.username;
-    const password = form.value.password;
+  onSignup() {
+
+    const username = this.form.value.username;
+    const password = this.form.value.password;
     const signupUser = this.authService.signupUser(username, password);
 
     signupUser.subscribe(

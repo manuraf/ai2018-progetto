@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-title">
-      Stai acquistando i seguenti archivi
+      Stai acquistando {{archivi.length}} archivi
     </h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
@@ -11,6 +11,7 @@
           <thead>
               <tr>
               <th scope="col">Id</th>
+              <th scope="col">Utente</th>
               <th scope="col">Rappr. Timestamp</th>
               <th scope="col">Rappr. Posizioni</th>
               <th scope="col">Note</th>
@@ -18,19 +19,26 @@
           </thead>
           <tbody>
               <tr *ngFor="let archivio of archivi"> 
-                  <td >{{archivio.id}}</td>
-                  <td>{{archivio.rappr_timestamp}}</td>
-                  <td>{{archivio.rappr_posizioni}}</td>
-                  <td>{{archivio.acquistato}}</td>
+                <td >{{archivio.id}}</td>
+                <td >{{archivio.utente}}</td>
+                <td>{{archivio.rappr_timestamp}}</td>
+                <td>{{archivio.rappr_posizioni}}</td>
+                <td>
+                    <label *ngIf="archivio.acquistato" style="color:green; font-weight: bold">
+                        Hai già acquistato l'archivio
+                    </label>       
+                </td>
               </tr>
           </tbody>
       </table>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
-        Annulla
-    </button>
-    <button type="button" class="btn btn-primary" (click)="onConfermaAcquista()">
+    <button type="button" class="btn btn-success" (click)="onConfermaAcquista()" 
+        [disabled]="disableConfermaAcquista">
         Conferma
     </button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Close click')">
+        Annulla
+    </button>
+
   </div>

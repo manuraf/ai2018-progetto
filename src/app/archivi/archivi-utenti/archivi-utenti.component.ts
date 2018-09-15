@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ArchiviUtentiComponent implements OnInit {
 
-  titleArchiviUtenti : string = "Archivi Utenti";
+  titleArchiviUtenti : string = "Archivi Utente";
   titleArchiviAcquistati : string = "Archivi Acquistati";
 
   archiviUtente : Archivio[];

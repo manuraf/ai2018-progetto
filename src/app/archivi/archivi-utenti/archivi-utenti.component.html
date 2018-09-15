@@ -1,15 +1,13 @@
 
-    <div class="row" >
-        <div class="col col-md-12 ">
-            <button (click)="onNuovoClick()"
-                class="btn btn-primary">
-                Nuovo
-            </button>
-        </div>
+<div class="d-flex flex-column m-4">
+    <div class="p-2">
+        <button (click)="onNuovoClick()"
+            class="btn btn-primary btn-lg">
+            Nuovo Archivio
+        </button>
     </div>
 
-    <div class="row" >
-            <div class="col col-md-12">
+    <div class="p-2">
         <archivi-list 
             [renderedPosizione]="true"
             [renderedAcquisti]="true"
@@ -17,10 +15,8 @@
             [title]="titleArchiviUtenti">
         </archivi-list>
     </div>
-</div>
 
-    <div class="row">
-            <div class="col col-md-12">
+    <div class="p-2">
         <archivi-list
             [renderedPosizione]="true"
             [archivi]="archiviAcquistati"

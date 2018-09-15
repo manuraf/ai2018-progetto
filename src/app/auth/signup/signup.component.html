@@ -1,22 +1,55 @@
-<div class="row">
-  <div class="col-md-4 offset-md-4">
-    <form (ngSubmit)="onSignup(f)" #f="ngForm">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" ngModel class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" ngModel class="form-control">
-      </div>
-      <div class="alert alert-danger" role="alert" *ngIf="renderedKo">
-        {{responseMessage}}
-      </div>
-      <div class="alert alert-danger" role="alert" *ngIf="renderedOk">
-        {{responseMessage}}
-      </div>
-      <button class="btn btn-primary btn-block" type="submit">Registrati</button>
-    </form>
+
+<div class="d-flex justify-content-center mt-4">
+    <div class="card" style="width: 30rem;">
+
+      <div class="card-body">
+        <form (ngSubmit)="onSignup()" #f="ngForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control form-control-lg"
+              ngModel minlength="3" required #username="ngModel">
+          </div>
+
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.required">
+              Username è obbligatorio.
+            </div>
+            <div *ngIf="username.errors.minlength">
+                Username deve avere almeno 3 caratteri.
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control form-control-lg"
+              ngModel minlength="6" required #password="ngModel">
+          </div>
+
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+              <div *ngIf="password.errors.required">
+                  Password è obbligatorio.
+              </div>
+              <div *ngIf="username.errors.minlength">
+                  Password deve avere almeno 6 caratteri.
+              </div>
+          </div>
+
+          <!-- <div class="form-group">
+              <label for="confPassword">Conferma Password</label>
+              <input type="confPassword" id="confPassword" name="confPassword" 
+                ngModel class="form-control" required>
+          </div> -->
+  
+
+          <div class="alert alert-danger" role="alert" *ngIf="renderedKo">
+            {{responseMessage}}
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="renderedOk">
+            {{responseMessage}}
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Registrati</button>
+        </form>
+    </div>
   </div>
 </div>
 

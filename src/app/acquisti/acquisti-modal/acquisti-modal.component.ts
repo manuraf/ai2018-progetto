@@ -11,13 +11,15 @@ import { AcquistaService } from '../acquista.service';
 export class AcquistiModalComponent implements OnInit {
 
   @Input() archivi : Archivio[];
+  disableConfermaAcquista: boolean = true;
 
   constructor(public activeModal: NgbActiveModal,
               private acquistaService: AcquistaService) { }
 
   ngOnInit() {
+    this.disableConfermaAcquista = 
+      this.archivi.filter(a => !a.acquistato).length == 0;
   }
-  
 
   onConfermaAcquista(){
     let ids = [];

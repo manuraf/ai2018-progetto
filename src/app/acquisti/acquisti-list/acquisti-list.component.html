@@ -1,67 +1,65 @@
-<div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-row" >
-                    <div class="form-group col-md-4">
-                        <label for="from">Data dal</label>
-                        <div class="input-group">
-                            <input class="form-control" placeholder="dd/mm/yyyy"
-                                    id = "from" (ngModelChange)="onDataChange()"
-                                    name="from"
-                                    ngModel
-                                    ngbDatepicker
-                                    #from="ngbDatepicker">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" (click)="from.toggle()" type="button">
-                                    <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<div class="d-flex justify-content-center mt-4">
 
-                    <div class="form-group col-md-4">
-                        <ngb-timepicker [(ngModel)]="timeFrom" (ngModelChange)="onDataChange()"
-                            name="timeFrom" required>
-                        </ngb-timepicker>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="utenti">Utente</label>
-                        <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onDataChange()"
-                            [options]="utenti" [(ngModel)]="utentiSelected" name="utentiSelected" >
-                        </ss-multiselect-dropdown>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="dataFin">Data al</label>
-                        <div class="input-group">
-                            <input class="form-control" placeholder="dd/mm/yyyy"
-                                    id = "to" (ngModelChange)="onDataChange()"
-                                    name="to"
-                                    ngModel
-                                    ngbDatepicker
-                                    #to="ngbDatepicker">
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" (click)="to.toggle()" type="button">
+    <div class="card">
+        <div class="card-header">
+            Acquista Archivi
+        </div>
+        <div class="card-body">
+            <div class="form-row" >
+                <div class="form-group col-md-4">
+                    <label for="from">Data dal</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                id = "from" (ngModelChange)="onDataChange()"
+                                name="from"
+                                ngModel
+                                ngbDatepicker
+                                #from="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="from.toggle()" type="button">
                                 <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
                             </button>
-                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group col-md-4">
-                        <ngb-timepicker [(ngModel)]="timeTo" (ngModelChange)="onDataChange()"eclip
-                            name="timeTo" required>
-                        </ngb-timepicker>
-                    </div>
-                    <!-- <div class="form-group col-md-12">
-                        <button class="btn btn-primary btn-block" type="submit">
-                            Cerca
+                <div class="form-group col-md-4">
+                    <ngb-timepicker [(ngModel)]="timeFrom" (ngModelChange)="onDataChange()"
+                        name="timeFrom" required>
+                    </ngb-timepicker>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="utenti">Utente</label>
+                    <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onDataChange()"
+                        [options]="utenti" [(ngModel)]="utentiSelected" name="utentiSelected" >
+                    </ss-multiselect-dropdown>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="dataFin">Data al</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                id = "to" (ngModelChange)="onDataChange()"
+                                name="to"
+                                ngModel
+                                ngbDatepicker
+                                #to="ngbDatepicker">
+                        <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="to.toggle()" type="button">
+                            <img src="./assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
                         </button>
-                    </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <ngb-timepicker [(ngModel)]="timeTo" (ngModelChange)="onDataChange()"eclip
+                        name="timeTo" required>
+                    </ngb-timepicker>
                 </div>
             </div>
-            </div>
+
 
             <div class="form-group col-md-12">
                     <agm-map  #agmMap [latitude]="45.0735886" [longitude]="7.6055662" 
@@ -85,23 +83,18 @@
             </div> 
 
             <div class="form-group col-md-12">
-                <app-datatable [elementId]="timeline"></app-datatable>
+                <app-datatable [posizioni]="posizioni" [colorsUtenti]="colorsUtenti"></app-datatable>
             </div>
 
             <div class="form-group col-md-12">
-                <button class="btn btn-primary btn-block" 
+                <button class="btn btn-primary btn-block btn-lg" 
                     (click)="onAcquista()"
                     [disabled]="posizioni.length == 0">
                     Acquista
                 </button>
             </div>
-
-    
-    <!-- <div class="row" >
-        <div class="form-group col-md-12">
-            <archivi-list [title]="title"></archivi-list>
         </div>
-    </div> -->
+    </div>
 </div>
 
 

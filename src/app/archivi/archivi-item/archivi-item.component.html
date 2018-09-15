@@ -1,44 +1,39 @@
 
-  <div class="row"> 
-    <div class="col">
+<div class="d-flex flex-column m-4">
+    <div class="p-2">
       <button (click)="onSalvaClick()"
-        class="btn btn-primary">
+        class="btn btn-success btn-lg">
         Salva
       </button>
 
       <button (click)="onAnnullaClick()"
-        class="btn btn-primary">
+        class="btn btn-danger btn-lg ml-2">
         Annulla
       </button>
-    </div>
   </div>
 
-  <div class="row">
+   <div class="p-2">
 
-    <div class="col">
     <div class="card">
       <div class="card-header">
         Nuovo Archivio
       </div>
       <div class="card-body">
 
-          <div class="card">
-            <div class="card-header">
-              Nuova Posizione
-            </div>
-            <div class="card-body">
-              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-
-               
-            <div class="form-row" >
+        <div class="card">
+          <div class="card-header">
+            Nuova Posizione
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+ 
+              <div class="form-row" >
                 <div class="form-group col-md-6">
                     <label for="data">Data</label>
                     <div class="input-group">
                         <input class="form-control" placeholder="dd/mm/yyyy"
-                                id = "data"
-                                name="data"
-                                ngModel
-                                ngbDatepicker
+                                id = "data" name="data"
+                                ngModel ngbDatepicker
                                 #data="ngbDatepicker"
                                 required>
                         <div class="input-group-append">
@@ -47,25 +42,36 @@
                             </button>
                         </div>
                     </div>  
+                    <span class="help-block" *ngIf="data.invalid">Data è obbligatoria</span>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <ngb-timepicker id="time" [(ngModel)]="time" 
-                      [seconds]="true" name="time" required>
+                    <ngb-timepicker id="time" 
+                      [seconds]="true" required>
                     </ngb-timepicker>
                 </div>
+                <span class="help-block" *ngIf="ctrl.invalid">
+                  L'orario è obbligatoria
+                </span>
               </div>
-                <div class="form-row" >
-                  <div class="form-group col-md-6">
-                      <label for="lat">Latitudine</label>
-                      <input id="lat" ngModel name="lat" type="number" required class="form-control">
-                  </div>
 
-                  <div class="form-group col-md-6">
-                      <label for="lng">Longitudine</label>
-                      <input id="lng" ngModel name="lng" type="number" required class="form-control">
-                  </div>
+              <div class="form-row" >
+                <div class="form-group col-md-6">
+                    <label for="lat">Latitudine</label>
+                    <input id="lat" ngModel name="lat" type="number" required class="form-control" #lat="ngModel">
+                    <span class="help-block" *ngIf="lat.invalid && (lat.dirty || lat.touched)">
+                      Latitudine è obbligatoria
+                    </span>
                 </div>
+
+                <div class="form-group col-md-6">
+                    <label for="lng">Longitudine</label>
+                    <input id="lng" ngModel name="lng" type="number" required class="form-control" #lng="ngModel">
+                    <span class="help-block" *ngIf="lng.invalid && (lng.dirty || lng.touched)">
+                        Longitudine è obbligatoria
+                    </span>
+                </div>
+              </div>
               
                 
                 <div class="form-row">

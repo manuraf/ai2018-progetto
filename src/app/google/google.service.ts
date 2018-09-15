@@ -1,4 +1,4 @@
-declare var google: any;
+declare const google: any;
 
 export class GoogleChartsBaseService {
   constructor() { 

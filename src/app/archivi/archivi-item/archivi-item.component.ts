@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 import { Posizione } from '../../posizioni/posizione.model';
 import { ArchiviService } from '../archivi.service';
 import { Archivio } from '../archivio.model';
@@ -13,7 +13,9 @@ import { Archivio } from '../archivio.model';
 })
 export class ArchiviItemComponent implements OnInit {
 
-  time: NgbTimeStruct = {hour: 13, minute: 30, second: 30};
+  @ViewChild('f') form: NgForm;
+
+  //time: NgbTimeStruct = {hour: 13, minute: 30, second: 30};
   posizioni: Posizione[] = [];
 
   constructor(private archiviService: ArchiviService, 
@@ -21,6 +23,23 @@ export class ArchiviItemComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  ctrl = new FormControl('', (control: FormControl) => {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    if (value.hour < 12) {
+      return {tooEarly: true};
+    }
+    if (value.hour > 13) {
+      return {tooLate: true};
+    }
+
+    return null;
+  });
 
 
   onSalvaClick(){
@@ -42,13 +61,13 @@ export class ArchiviItemComponent implements OnInit {
     this.router.navigate(['/archivi']);
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
    
     const data = new Date(
-      form.value.data.year,form.value.data.month,form.value.data.day,
-      form.value.time.hour,form.value.time.minute,form.value.time.second
+      this.form.value.data.year,this.form.value.data.month,this.form.value.data.day,
+      this.form.value.time.hour,this.form.value.time.minute,this.form.value.time.second
     );
-    this.posizioni.push(new Posizione(data,form.value.lat, form.value.lng));
+    this.posizioni.push(new Posizione(data,this.form.value.lat, this.form.value.lng));
   }
 
 }
