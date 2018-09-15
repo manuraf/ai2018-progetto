@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
 
     signinUser.subscribe(
       (val) => {
-          localStorage.setItem('currentUser', val.access_token);
+          localStorage.setItem('currentUser', JSON.stringify(val));
           this.router.navigate(['/archivi']);
       },
       response => {

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Ricerca } from "../acquisti/ricerca.model";
+import { AuthService } from "../auth/auth.service";
 
 
 @Injectable()
@@ -8,7 +9,8 @@ export class AcquistaService {
 
     baseUrl: string = "http://localhost:8080";
 
-    constructor(private httpClient: HttpClient){}
+    constructor(private httpClient: HttpClient,
+                private authService: AuthService){}
 
     getArchiviWithAcquistati(archivi: number[]){
         return this.httpClient.post<any>(
@@ -17,7 +19,7 @@ export class AcquistaService {
             {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }
@@ -29,7 +31,7 @@ export class AcquistaService {
             {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }

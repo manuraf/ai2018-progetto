@@ -28,6 +28,8 @@ import { AcquistaService } from './acquisti/acquista.service';
 import { GoogleChartsBaseService } from './google/google.service';
 import { DatatableComponent } from './google/datatable/datatable.component';
 import { GoogleDatatableService } from './google/googleDatatable.service';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { GoogleDatatableService } from './google/googleDatatable.service';
     HttpClientModule,
     AppRoutingModule,
     MultiselectDropdownModule,
+    Angular2FontawesomeModule,
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',
@@ -60,7 +63,14 @@ import { GoogleDatatableService } from './google/googleDatatable.service';
     })
   ],
   entryComponents:[PosizioniModalComponent, AcquistiModalComponent],
-  providers: [AuthService, AuthGuard, ArchiviService, AcquistaService, GoogleChartsBaseService, GoogleDatatableService],
+  providers: [
+    AuthService, 
+    AuthGuard, 
+    ArchiviService, 
+    AcquistaService, 
+    GoogleChartsBaseService, 
+    GoogleDatatableService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

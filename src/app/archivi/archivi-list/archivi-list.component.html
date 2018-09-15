@@ -23,15 +23,17 @@
                     <td>
                         <button 
                             *ngIf="renderedPosizione"
-                            class="btn btn-primary" 
+                            class="btn btn-primary mr-2" 
                             title="Visualizza dettaglio e lista posizioni"
-                            (click)="onVisualizzaPosizioni(archivio)">                          
+                            (click)="onVisualizzaPosizioni(archivio)">
+                            <fa [name]="'search'" [size]=1></fa>                          
                         </button>
                         <button 
                             *ngIf="archivio.acquistabile"
                             class="btn btn-primary"
                             title="Elimina archivio" 
-                            (click)="onElimina(archivio)">                            
+                            (click)="onElimina(archivio)"> 
+                            <fa [name]="'trash'" [size]=1></fa>                           
                         </button>
                     </td>
                 </tr>

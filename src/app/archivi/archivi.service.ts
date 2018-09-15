@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Archivio } from "./archivio.model";
 import { Ricerca } from "../acquisti/ricerca.model";
 import { Posizione } from "../posizioni/posizione.model";
+import { AuthService } from "../auth/auth.service";
 
 
 @Injectable()
@@ -10,14 +11,15 @@ export class ArchiviService {
 
     baseUrl: string = "http://localhost:8080";
 
-    constructor(private httpClient: HttpClient){}
+    constructor(private httpClient: HttpClient,
+                private authService: AuthService){}
 
     getArchiviUtente(){
         return this.httpClient.get<Archivio[]>(
             this.baseUrl + '/archivio',
             {
               headers: new HttpHeaders()
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }
@@ -27,7 +29,7 @@ export class ArchiviService {
             this.baseUrl + '/archivio/acquistati',
             {
               headers: new HttpHeaders()
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }
@@ -39,7 +41,7 @@ export class ArchiviService {
             {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }
@@ -49,7 +51,7 @@ export class ArchiviService {
             this.baseUrl + '/archivio/' + archivio.id,
             {
               headers: new HttpHeaders()
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }
@@ -63,7 +65,7 @@ export class ArchiviService {
             {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.authService.getToken())
             }
         );
     }

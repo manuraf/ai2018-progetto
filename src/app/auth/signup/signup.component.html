@@ -47,7 +47,10 @@
           <div class="alert alert-danger" role="alert" *ngIf="renderedOk">
             {{responseMessage}}
           </div>
-          <button class="btn btn-primary btn-block" type="submit">Registrati</button>
+          <button class="btn btn-primary btn-block" type="submit">
+            <fa [name]="'user-plus'" [size]=1></fa>
+            Registrati
+          </button>
         </form>
     </div>
   </div>

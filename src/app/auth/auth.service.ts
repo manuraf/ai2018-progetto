@@ -38,8 +38,8 @@ export class AuthService {
         );
     }
 
-    getToken(){
-        //return token
+    getToken(): string {
+       return JSON.parse(localStorage.getItem('currentUser')).access_token;
     }
 
     isAuthenticated(){
@@ -63,4 +63,42 @@ export class AuthService {
             }
         );
     }
+
+    public isValidToken(): boolean {
+        // token non esiste nella local storage quindi non valido
+        if (!localStorage.getItem('currentUser')) {
+          return false;
+        }
+        // token esiste ma devo verificare che non sia scaduto
+        if (this.isExpiredToken()) {
+          return false;
+        }
+    
+        // token valido
+        return true;
+      }
+    
+      public isExpiredToken(): boolean {
+        const tokenDecoded = this.parseJwt(JSON.parse(localStorage.getItem('currentUser')).access_token);
+        const dataScadenza: Date = new Date(tokenDecoded.exp * 1000);
+        const now: Date = new Date();
+        if (now > dataScadenza) {
+          return true;
+        }
+        return false;
+      }
+
+      public parseJwt (token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+      }
+
+      public getUserLogged() {
+        if (localStorage.getItem('currentUser')) {
+          const jwt = this.parseJwt(JSON.parse(localStorage.getItem('currentUser')).access_token);
+          return jwt;
+        } 
+        return null;
+      }
 }

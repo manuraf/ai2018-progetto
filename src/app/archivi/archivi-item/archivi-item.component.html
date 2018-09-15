@@ -3,11 +3,13 @@
     <div class="p-2">
       <button (click)="onSalvaClick()"
         class="btn btn-success btn-lg">
+        <fa [name]="'save'" [size]=1></fa>
         Salva
       </button>
 
       <button (click)="onAnnullaClick()"
         class="btn btn-danger btn-lg ml-2">
+        <fa [name]="'reply'" [size]=1></fa>
         Annulla
       </button>
   </div>
@@ -76,6 +78,7 @@
                 
                 <div class="form-row">
                   <button class="btn btn-primary" type="submit">
+                      <fa [name]="'plus'" [size]=1></fa>
                     Aggiungi in Archivio
                   </button> 
                 </div>
