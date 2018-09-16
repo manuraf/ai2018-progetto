@@ -29,7 +29,7 @@
               <div *ngIf="password.errors.required">
                   Password è obbligatorio.
               </div>
-              <div *ngIf="username.errors.minlength">
+              <div *ngIf="password.errors.minlength">
                   Password deve avere almeno 6 caratteri.
               </div>
           </div>
@@ -40,14 +40,7 @@
                 ngModel class="form-control" required>
           </div> -->
   
-
-          <div class="alert alert-danger" role="alert" *ngIf="renderedKo">
-            {{responseMessage}}
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="renderedOk">
-            {{responseMessage}}
-          </div>
-          <button class="btn btn-primary btn-block" type="submit">
+          <button class="btn btn-primary btn-block" type="submit" [disabled]="f.invalid">
             <fa [name]="'user-plus'" [size]=1></fa>
             Registrati
           </button>

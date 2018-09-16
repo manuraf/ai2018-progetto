@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -11,30 +12,38 @@ export class SignupComponent implements OnInit {
 
   @ViewChild('f') form: NgForm;
 
-  renderedKo: boolean = false;
-  renderedOk: boolean = false;
-  responseMessage: string;
-
-  constructor(private authService: AuthService) { }
-
   ngOnInit() {
   }
 
-  onSignup() {
+  constructor(private toastr: ToastrService,
+              private authService: AuthService) {
+ }
 
+  onSignup() {
+    
     const username = this.form.value.username;
     const password = this.form.value.password;
     const signupUser = this.authService.signupUser(username, password);
 
     signupUser.subscribe(
       (val) => {
-          this.responseMessage = "Utente registrato con successo!";
-          this.renderedOk = true; 
+          this.showSuccess("Utente registrato con successo!"); 
       },
       response => {
-        this.responseMessage = "Errore " + response.error;
-        this.renderedKo = true; 
+        this.showError("Errore " + response.error);
       });
+  }
+
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success!', {
+      timeOut: 3000
+    });
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, 'Oops!', {
+      timeOut: 3000
+    });
   }
 
 }

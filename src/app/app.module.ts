@@ -28,7 +28,10 @@ import { AcquistaService } from './acquisti/acquista.service';
 import { GoogleChartsBaseService } from './google/google.service';
 import { DatatableComponent } from './google/datatable/datatable.component';
 import { GoogleDatatableService } from './google/googleDatatable.service';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -56,6 +59,8 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
     AppRoutingModule,
     MultiselectDropdownModule,
     Angular2FontawesomeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({timeOut: 10000}),
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',

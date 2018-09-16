@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PosizioniListComponent } from '../../posizioni/posizioni-list/posizioni-list.component';
 import { PosizioniModalComponent } from '../../posizioni/posizioni-modal/posizioni-modal.component';
 import { ArchiviService } from '../archivi.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'archivi-list',
@@ -19,6 +20,7 @@ export class ArchiviListComponent implements OnInit {
   @Input() renderedAcquisti: boolean = false;
 
   constructor(private modalService: NgbModal,
+              private toastr: ToastrService,
               private archiviService: ArchiviService) { }
 
   ngOnInit() {
@@ -36,10 +38,23 @@ export class ArchiviListComponent implements OnInit {
     eliminaArchivio.subscribe(
       (val) => {
         archivio.acquistabile = false;
+        this.showSuccess("Archivio eliminato con successo!");
       },
       (response) => {
-        console.log('Errore ' + response);
+        this.showError("Errore " + response.error);
       }
     );
+  }
+
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success!', {
+      timeOut: 3000
+    });
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, 'Oops!', {
+      timeOut: 3000
+    });
   }
 }

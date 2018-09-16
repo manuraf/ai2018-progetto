@@ -11,6 +11,7 @@
                 <th scope="col">Rappr. Timestamp</th>
                 <th scope="col">Rappr. Posizioni</th>
                 <th scope="col" *ngIf="renderedAcquisti">Num. Acquisti</th>
+                <th scope="col" *ngIf="!renderedAcquisti"></th>
                 <th scope="col"></th>
                 </tr>
             </thead>
@@ -20,6 +21,7 @@
                     <td>{{archivio.rappr_timestamp}}</td>
                     <td>{{archivio.rappr_posizioni}}</td>
                     <td *ngIf="renderedAcquisti">{{archivio.acquisti}}</td>
+                    <td *ngIf="!renderedAcquisti"></td>
                     <td>
                         <button 
                             *ngIf="renderedPosizione"
@@ -29,7 +31,7 @@
                             <fa [name]="'search'" [size]=1></fa>                          
                         </button>
                         <button 
-                            *ngIf="archivio.acquistabile"
+                            *ngIf="archivio.acquistabile && renderedAcquisti"
                             class="btn btn-primary"
                             title="Elimina archivio" 
                             (click)="onElimina(archivio)"> 

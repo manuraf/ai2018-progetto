@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Archivio } from '../../archivi/archivio.model';
 import { AcquistaService } from '../acquista.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-acquisti-modal',
@@ -14,6 +15,7 @@ export class AcquistiModalComponent implements OnInit {
   disableConfermaAcquista: boolean = true;
 
   constructor(public activeModal: NgbActiveModal,
+              private toastr: ToastrService,
               private acquistaService: AcquistaService) { }
 
   ngOnInit() {
@@ -33,12 +35,25 @@ export class AcquistiModalComponent implements OnInit {
     acquistaArchivi.subscribe(
       (val) => {
         this.archivi = [];
+        this.showSuccess("Utente registrato con successo!"); 
         this.activeModal.close('Close click')
       },
       (response) => {
-        console.log('Errore ' + response);
+        this.showError(response); 
       }
     );
+  }
+
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success!', {
+      timeOut: 3000
+    });
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, 'Errore!', {
+      timeOut: 3000
+    });
   }
 
 }
