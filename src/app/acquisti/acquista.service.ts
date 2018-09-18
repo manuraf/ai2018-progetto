@@ -2,15 +2,19 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Ricerca } from "../acquisti/ricerca.model";
 import { AuthService } from "../auth/auth.service";
+import { AppConfigService } from "../app-config.service";
 
 
 @Injectable()
 export class AcquistaService {
 
-    baseUrl: string = "http://localhost:8080";
+    baseUrl: string;
 
     constructor(private httpClient: HttpClient,
-                private authService: AuthService){}
+                private authService: AuthService,
+                private appConfig: AppConfigService){
+        this.baseUrl = appConfig.getConfig().baseUrl;
+    }
 
     getArchiviWithAcquistati(archivi: number[]){
         return this.httpClient.post<any>(

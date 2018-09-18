@@ -2,18 +2,22 @@ import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Utente } from './utente.model';
+import { AppConfigService } from "../app-config.service";
 
 @Injectable()
 export class AuthService {
 
     token : string;
-    baseUrl: string = "http://localhost:8080";
+    baseUrl: string;
 
     security_jwt_client_id: string = "testjwtclientid";
     security_jwt_client_secret: string = "XY7kmzoNzl100";
 
     constructor(private httpClient: HttpClient,
-                private router: Router){}
+                private router: Router,
+                private appConfig: AppConfigService){
+        this.baseUrl = appConfig.getConfig().baseUrl;
+    }
 
     signupUser(username: string, password: string) {
         //chiamata al servizio di registrazione

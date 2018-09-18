@@ -32,6 +32,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
+import { AppConfigService } from './app-config.service';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
     ArchiviService, 
     AcquistaService, 
     GoogleChartsBaseService, 
-    GoogleDatatableService
+    GoogleDatatableService,
+    AppConfigService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let posizione of posizioni"> 
-            <td >{{posizione.timestamp | date:'medium' }}</td>
+            <td >{{posizione.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
             <td>{{posizione.latitudine}}</td>
             <td>{{posizione.longitudine}}</td>
         </tr>

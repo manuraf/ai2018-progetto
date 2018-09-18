@@ -4,15 +4,19 @@ import { Archivio } from "./archivio.model";
 import { Ricerca } from "../acquisti/ricerca.model";
 import { Posizione } from "../posizioni/posizione.model";
 import { AuthService } from "../auth/auth.service";
+import { AppConfigService } from "../app-config.service";
 
 
 @Injectable()
 export class ArchiviService {
 
-    baseUrl: string = "http://localhost:8080";
+    baseUrl: string;
 
     constructor(private httpClient: HttpClient,
-                private authService: AuthService){}
+                private authService: AuthService,
+                private appConfig: AppConfigService){
+        this.baseUrl = appConfig.getConfig().baseUrl;
+    }
 
     getArchiviUtente(){
         return this.httpClient.get<Archivio[]>(
