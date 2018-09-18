@@ -47,8 +47,7 @@ export class AuthService {
     }
 
     isAuthenticated(){
-        if (!localStorage.getItem('currentUser')) return false; 
-        return true;
+        return this.isValidToken();
     }
 
     logout() {
@@ -87,6 +86,7 @@ export class AuthService {
         const dataScadenza: Date = new Date(tokenDecoded.exp * 1000);
         const now: Date = new Date();
         if (now > dataScadenza) {
+            this.logout();
           return true;
         }
         return false;
