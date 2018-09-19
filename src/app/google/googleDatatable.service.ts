@@ -28,7 +28,7 @@ export class GoogleDatatableService {
       posizioni.map(p => { 
         let data = new Date(p.timestamp);
         rows.push(
-          ['Posizioni', p.archivio.utente, new Date(p.timestamp), new Date(data.getTime())]
+          ['Posizioni', p.archivio.utente, data, new Date(data.getTime() + 60000)]
         );
 
         if(!colors.includes(colorsUtente[p.archivio.utente])){
@@ -37,7 +37,7 @@ export class GoogleDatatableService {
       });
 
       if(rows.length == 0) {
-        rows = [[ 'Posizioni', '-', new Date(2018, 1, 1), new Date(2018, 1, 1) ]];
+        rows = [[ 'Posizioni', '-', new Date(2018, 1, 1, 0, 0), new Date(2018, 1, 1, 0, 1) ]];
       }
 
       if(colors.length == 0) {
@@ -45,7 +45,7 @@ export class GoogleDatatableService {
       }
 
       dataTable.addRows(rows);
-
+      debugger;
       chart.draw(dataTable,{colors:colors});
     });
   }

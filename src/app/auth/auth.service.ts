@@ -62,7 +62,7 @@ export class AuthService {
             this.baseUrl + '/utente',
             {
               headers: new HttpHeaders()
-                .set("Authorization", "Bearer " + localStorage.getItem('currentUser'))
+                .set("Authorization", "Bearer " + this.getToken())
             }
         );
     }

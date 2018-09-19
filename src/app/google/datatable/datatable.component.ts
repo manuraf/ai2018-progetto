@@ -23,7 +23,6 @@ export class DatatableComponent implements OnInit {
   set posizioni(posizioni: Posizione[]){
     this._posizioni = posizioni;
     this._datatableService.BuildDatatable("timeline", this._posizioni, this.colorsUtenti); 
-    console.log('got posizioni ');
   }
 
 }

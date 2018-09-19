@@ -128,7 +128,7 @@ export class AcquistiListComponent implements OnInit {
           this.circle.push({
             lat: posizione.latitudine, 
             lng: posizione.longitudine, 
-            radius: 6000, 
+            radius: 600, 
             color: this.colorsUtenti[posizione.archivio.utente]
           });
         })
