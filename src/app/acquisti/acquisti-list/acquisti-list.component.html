@@ -5,6 +5,7 @@
             Acquista Archivi
         </div>
         <div class="card-body">
+            <form #f="ngForm">
             <div class="form-row" >
                 <div class="form-group col-md-4">
                     <label for="from">Data dal</label>
@@ -12,8 +13,7 @@
                         <input class="form-control" placeholder="dd/mm/yyyy"
                                 id = "from" (ngModelChange)="onDataChange()"
                                 name="from"
-                                ngModel
-                                ngbDatepicker
+                                ngModel ngbDatepicker
                                 #from="ngbDatepicker">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" (click)="from.toggle()" type="button">
@@ -42,8 +42,7 @@
                         <input class="form-control" placeholder="dd/mm/yyyy"
                                 id = "to" (ngModelChange)="onDataChange()"
                                 name="to"
-                                ngModel
-                                ngbDatepicker
+                                ngModel ngbDatepicker
                                 #to="ngbDatepicker">
                         <div class="input-group-append">
                         <button class="btn btn-outline-secondary" (click)="to.toggle()" type="button">
@@ -59,7 +58,7 @@
                     </ngb-timepicker>
                 </div>
             </div>
-
+            </form>
 
             <div class="form-group col-md-12">
                     <agm-map  #agmMap [latitude]="45.0735886" [longitude]="7.6055662" 
@@ -81,6 +80,11 @@
                         </agm-circle>
                     </agm-map>
             </div> 
+
+            <div class="form-group col-md-12" *ngIf="posizioni">
+                <span>{{ dataInizio | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                <span style="float: right">{{ dataFine | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+            </div>
 
             <div class="form-group col-md-12">
                 <app-datatable [posizioni]="posizioni" [colorsUtenti]="colorsUtenti"></app-datatable>

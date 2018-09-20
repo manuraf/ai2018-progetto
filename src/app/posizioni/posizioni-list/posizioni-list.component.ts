@@ -10,9 +10,18 @@ import { Posizione } from '../posizione.model';
 export class PosizioniListComponent implements OnInit {
 
   @Input() posizioni : Posizione[] = [];
+  @Input() renderedElimina : boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  onElimina(posizione: Posizione) {
+    let index = this.posizioni.indexOf(posizione);
+    if (index > -1) {
+      this.posizioni.splice(index, 1);
+    }
+  }
+
 }

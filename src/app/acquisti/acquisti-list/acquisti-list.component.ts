@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NgbTimeStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeStruct, NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../auth/auth.service';
 import { IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { ArchiviService } from '../../archivi/archivi.service';
@@ -17,8 +17,8 @@ declare const google: any;
 })
 export class AcquistiListComponent implements OnInit {
 
-  from: Date;
-  to: Date;
+  @ViewChild('f') form: NgForm;
+
   timeFrom: NgbTimeStruct;
   timeTo: NgbTimeStruct;
 
@@ -26,6 +26,7 @@ export class AcquistiListComponent implements OnInit {
   utentiSelected: string[];
   posizioni: Posizione[] = [];
   archiviDaAcquistare: Archivio[];
+  polygonCreato : boolean = false;
   
   polygon: any;
   circle: any;
@@ -33,8 +34,10 @@ export class AcquistiListComponent implements OnInit {
 
   title : string = "Archivi";
   renderedAcquista : boolean = false;
+  dataInizio : Date;
+  dataFine : Date;
 
-  colors: String[] = ['red','yellow','blue','green','grey']
+  colors: String[] = ['red','blue','green','grey','yellow']
   colorsUtenti: [{[key:string]:string}] = [{}];
 
   managerOptions = {
@@ -99,25 +102,32 @@ export class AcquistiListComponent implements OnInit {
     this.onDataChange();
   }
 
-  onDataChange(){
-   
+  getObservableArchiviByMap(paths : any){
     let from = null;
-    if(this.from && this.timeFrom) {
+    let to = null;
+    let fromForm = this.form.value.from;
+    let toForm = this.form.value.to;
+
+    if(fromForm && this.timeFrom) {
       from = new Date(
-        this.from.getFullYear(),this.from.getMonth(),this.from.getDay(),
+        fromForm.year,fromForm.month,fromForm.day,
         this.timeFrom.hour,this.timeFrom.minute,this.timeFrom.second
       );
     }
-
-    let to = null;
-    if(this.to && this.timeTo) {
+ 
+    if(toForm && this.timeTo) {
       to = new Date(
-        this.to.getFullYear(),this.to.getMonth(),this.to.getDay(),
+        toForm.year,toForm.month,toForm.day,
         this.timeTo.hour,this.timeTo.minute,this.timeTo.second
       );
     }
+    debugger;
+    return this.archiviService.getArchiviByMap(from,to,this.utentiSelected,paths);
+  }
+
+  onDataChange(){
     
-    const getArchiviByMap = this.archiviService.getArchiviByMap(from,to,this.utentiSelected,this.paths);
+    const getArchiviByMap = this.getObservableArchiviByMap(this.paths);
 
     getArchiviByMap.subscribe(
       (val) => {
@@ -132,6 +142,13 @@ export class AcquistiListComponent implements OnInit {
             color: this.colorsUtenti[posizione.archivio.utente]
           });
         })
+
+        length = this.posizioni.length;
+        if(length > 0) this.dataInizio = this.posizioni[0].timestamp
+        else this.dataInizio = null;
+
+        if(length > 0) this.dataFine = this.posizioni[length-1].timestamp
+        else this.dataFine = null;
 
         this.renderedAcquista = this.posizioni.length > 0;
       },
@@ -152,12 +169,13 @@ export class AcquistiListComponent implements OnInit {
       console.log('coordinates_changed');
       console.log(this.polygon);
     });
-    this.paths = this.getPaths();
 
-    this.onDataChange();
+    this.polygonCreato = true;
+    // this.paths = this.getPolygonPaths();
+    // this.onDataChange();
   }
 
-  getPaths() {
+  getPolygonPaths() {
     if (this.polygon) {
       const vertices = this.polygon.getPaths().getArray()[0];
       let paths = [];
@@ -214,31 +232,50 @@ export class AcquistiListComponent implements OnInit {
 
   onAcquista(){
     
+    /* se il poligono è stato creato, recupero posizioni nel poligono e apro la dialog */
+
+    if(this.polygonCreato) {
+      const getArchiviByMap = this.getObservableArchiviByMap(this.getPolygonPaths());
+
+      getArchiviByMap.subscribe(
+        (val) => {
+          // let posizioni = val;
+          this.showModalAcquisti(val);
+        },
+        (response) => {
+          console.log('Errore ' + response);
+        }
+      );
+
+    } else {
+      this.showModalAcquisti(this.posizioni);
+    }
+
+  }
+
+  showModalAcquisti(posizioni:Posizione[]) {
+
     /* ho già le posizioni, quindi mi ricavo subito gli archivi da acquistare */
     /* ricavo archivi dalle posizioni selezionate e apro la dialog di conferma */
     let uniques = new Set();
 
-
-    this.posizioni.map( p => {
+    posizioni.map( p => {
       uniques.add(p.archivio.id)
     });
 
-    console.log(Array.from(uniques));
     const getArchiviWithAcquistati = this.acquistiService.getArchiviWithAcquistati(Array.from(uniques));
 
     getArchiviWithAcquistati.subscribe(
       (val) => {
         this.archiviDaAcquistare =  val;
-        console.log(val);
 
-        const modelRef = this.modalService.open(AcquistiModalComponent);
+        const modelRef = this.modalService.open(AcquistiModalComponent, { size: 'lg', backdrop: 'static' });
         modelRef.componentInstance.archivi = this.archiviDaAcquistare;
       },
       (response) => {
         console.log('Errore ' + response);
       }
     );
-
 
   }
 

@@ -4,6 +4,7 @@
         <th scope="col">Data</th>
         <th scope="col">Latitudine</th>
         <th scope="col">Longitudine</th>
+        <th scope="col" *ngIf="renderedElimina"></th>
         </tr>
     </thead>
     <tbody>
@@ -11,6 +12,15 @@
             <td >{{posizione.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
             <td>{{posizione.latitudine}}</td>
             <td>{{posizione.longitudine}}</td>
+            <td *ngIf="renderedElimina">
+                <button 
+                    *ngIf="renderedElimina"
+                    class="btn btn-danger"
+                    title="Elimina archivio" 
+                    (click)="onElimina(posizione)"> 
+                    <fa [name]="'trash'" [size]=1></fa>                           
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

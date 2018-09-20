@@ -22,7 +22,7 @@
                     <td>{{archivio.rappr_posizioni}}</td>
                     <td *ngIf="renderedAcquisti">{{archivio.acquisti}}</td>
                     <td *ngIf="!renderedAcquisti"></td>
-                    <td>
+                    <td style="width: 15%">
                         <button 
                             *ngIf="renderedPosizione"
                             class="btn btn-primary mr-2" 
@@ -32,7 +32,7 @@
                         </button>
                         <button 
                             *ngIf="archivio.acquistabile && renderedAcquisti"
-                            class="btn btn-primary"
+                            class="btn btn-danger"
                             title="Elimina archivio" 
                             (click)="onElimina(archivio)"> 
                             <fa [name]="'trash'" [size]=1></fa>                           

@@ -19,6 +19,8 @@
 
       <ul class="navbar-nav">
           <ng-template [ngIf]="authService.isAuthenticated()">
+              <li><span>Ciao Manuel</span></li>
+
             <li>
               <button class="btn btn-danger" (click)="onLogout()" title="Effettua logout">
                   <fa [name]="'sign-out'" [size]=1></fa>

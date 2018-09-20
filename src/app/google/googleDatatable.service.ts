@@ -45,7 +45,7 @@ export class GoogleDatatableService {
       }
 
       dataTable.addRows(rows);
-      debugger;
+
       chart.draw(dataTable,{colors:colors});
     });
   }

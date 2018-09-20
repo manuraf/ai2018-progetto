@@ -35,7 +35,7 @@ export class AcquistiModalComponent implements OnInit {
     acquistaArchivi.subscribe(
       (val) => {
         this.archivi = [];
-        this.showSuccess("Utente registrato con successo!"); 
+        this.showSuccess("Archivi acquistati con successo!"); 
         this.activeModal.close('Close click')
       },
       (response) => {
