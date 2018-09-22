@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-striped" [mfData]="posizioni" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
         <tr>
         <th scope="col">Data</th>
@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let posizione of posizioni"> 
+        <tr *ngFor="let posizione of mf.data"> 
             <td >{{posizione.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
             <td>{{posizione.latitudine}}</td>
             <td>{{posizione.longitudine}}</td>
@@ -23,4 +23,11 @@
             </td>
         </tr>
     </tbody>
+    <tfoot>
+          <tr>
+              <td colspan="5">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+          </tr>
+    </tfoot>
 </table>

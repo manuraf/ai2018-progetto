@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         
-        <table class="table">
+        <table class="table table-striped" [mfData]="archivi" #mf="mfDataTable" [mfRowsOnPage]="5">
             <thead>
                 <tr>
                 <th scope="col">Id</th>
@@ -16,11 +16,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let archivio of archivi"> 
-                    <td >{{archivio.id}}</td>
-                    <td>{{archivio.rappr_timestamp}}</td>
-                    <td>{{archivio.rappr_posizioni}}</td>
-                    <td *ngIf="renderedAcquisti">{{archivio.acquisti}}</td>
+                <tr *ngFor="let archivio of mf.data"> 
+                    <td [ngClass]="{'archivio-eliminato': !archivio.acquistabile}">{{archivio.id}}</td>
+                    <td [ngClass]="{'archivio-eliminato': !archivio.acquistabile}">{{archivio.rappr_timestamp}}</td>
+                    <td [ngClass]="{'archivio-eliminato': !archivio.acquistabile}">{{archivio.rappr_posizioni}}</td>
+                    <td *ngIf="renderedAcquisti" [ngClass]="{'archivio-eliminato': !archivio.acquistabile}">
+                        {{archivio.acquisti}}
+                    </td>
                     <td *ngIf="!renderedAcquisti"></td>
                     <td style="width: 15%">
                         <button 
@@ -40,6 +42,13 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 
     </div>

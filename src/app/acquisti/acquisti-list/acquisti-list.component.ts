@@ -79,8 +79,10 @@ export class AcquistiListComponent implements OnInit {
         this.utenti = [];
 
         val.map((utente,index) => {
-          this.utenti.push({ id: utente, name: utente });
-          this.colorsUtenti[utente+''] = this.colors[index];
+          if(utente !== this.authService.getUserLogged().user_name) {
+            this.utenti.push({ id: utente, name: utente });
+            this.colorsUtenti[utente+''] = this.colors[index];
+          }
         });
       },
       (response) => {
@@ -121,7 +123,7 @@ export class AcquistiListComponent implements OnInit {
         this.timeTo.hour,this.timeTo.minute,this.timeTo.second
       );
     }
-    debugger;
+
     return this.archiviService.getArchiviByMap(from,to,this.utentiSelected,paths);
   }
 
@@ -151,6 +153,7 @@ export class AcquistiListComponent implements OnInit {
         else this.dataFine = null;
 
         this.renderedAcquista = this.posizioni.length > 0;
+        this.aggiornaArchiviDaAcquistare();
       },
       (response) => {
         console.log('Errore ' + response);
@@ -171,8 +174,7 @@ export class AcquistiListComponent implements OnInit {
     });
 
     this.polygonCreato = true;
-    // this.paths = this.getPolygonPaths();
-    // this.onDataChange();
+    this.aggiornaArchiviDaAcquistare();
   }
 
   getPolygonPaths() {
@@ -231,16 +233,19 @@ export class AcquistiListComponent implements OnInit {
   };
 
   onAcquista(){
-    
-    /* se il poligono è stato creato, recupero posizioni nel poligono e apro la dialog */
+    const modelRef = this.modalService.open(AcquistiModalComponent, { size: 'lg', backdrop: 'static' });
+    modelRef.componentInstance.archivi = this.archiviDaAcquistare;
+  }
 
+  aggiornaArchiviDaAcquistare() {
+
+    /* se il poligono è stato creato, recupero posizioni nel poligono*/
     if(this.polygonCreato) {
       const getArchiviByMap = this.getObservableArchiviByMap(this.getPolygonPaths());
 
       getArchiviByMap.subscribe(
         (val) => {
-          // let posizioni = val;
-          this.showModalAcquisti(val);
+          this.ricavaArchiviDaAcquistare(val);
         },
         (response) => {
           console.log('Errore ' + response);
@@ -248,12 +253,11 @@ export class AcquistiListComponent implements OnInit {
       );
 
     } else {
-      this.showModalAcquisti(this.posizioni);
+      this.ricavaArchiviDaAcquistare(this.posizioni);
     }
-
   }
 
-  showModalAcquisti(posizioni:Posizione[]) {
+  ricavaArchiviDaAcquistare(posizioni:Posizione[]) {
 
     /* ho già le posizioni, quindi mi ricavo subito gli archivi da acquistare */
     /* ricavo archivi dalle posizioni selezionate e apro la dialog di conferma */
@@ -268,9 +272,6 @@ export class AcquistiListComponent implements OnInit {
     getArchiviWithAcquistati.subscribe(
       (val) => {
         this.archiviDaAcquistare =  val;
-
-        const modelRef = this.modalService.open(AcquistiModalComponent, { size: 'lg', backdrop: 'static' });
-        modelRef.componentInstance.archivi = this.archiviDaAcquistare;
       },
       (response) => {
         console.log('Errore ' + response);

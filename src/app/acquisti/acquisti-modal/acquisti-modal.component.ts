@@ -13,14 +13,15 @@ export class AcquistiModalComponent implements OnInit {
 
   @Input() archivi : Archivio[];
   disableConfermaAcquista: boolean = true;
+  numArchiviDaAcquistare: number;
 
   constructor(public activeModal: NgbActiveModal,
               private toastr: ToastrService,
               private acquistaService: AcquistaService) { }
 
   ngOnInit() {
-    this.disableConfermaAcquista = 
-      this.archivi.filter(a => !a.acquistato).length == 0;
+    this.numArchiviDaAcquistare = this.archivi.filter(a => !a.acquistato).length
+    this.disableConfermaAcquista = this.numArchiviDaAcquistare == 0;
   }
 
   onConfermaAcquista(){

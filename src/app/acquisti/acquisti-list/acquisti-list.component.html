@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="utenti">Utente</label>
+                    <label for="utenti" class="mr-4">Utente</label>
                     <ss-multiselect-dropdown [texts]="myTexts" (ngModelChange)="onDataChange()"
                         [options]="utenti" [(ngModel)]="utentiSelected" name="utentiSelected" >
                     </ss-multiselect-dropdown>
@@ -59,6 +59,10 @@
                 </div>
             </div>
             </form>
+
+            <div class="form-group col-md-12">
+                Archivi selezionati {{archiviDaAcquistare.length}}
+            </div>
 
             <div class="form-group col-md-12">
                     <agm-map  #agmMap [latitude]="45.0735886" [longitude]="7.6055662" 
@@ -90,6 +94,7 @@
                 <app-datatable [posizioni]="posizioni" [colorsUtenti]="colorsUtenti"></app-datatable>
             </div>
 
+            
             <div class="form-group col-md-12">
                 <button class="btn btn-primary btn-block btn-lg" 
                     (click)="onAcquista()"

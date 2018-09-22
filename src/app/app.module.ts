@@ -30,6 +30,7 @@ import { DatatableComponent } from './google/datatable/datatable.component';
 import { GoogleDatatableService } from './google/googleDatatable.service';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTableModule } from "angular2-datatable";
  
 import { ToastrModule } from 'ngx-toastr';
 import { AppConfigService } from './app-config.service';
@@ -61,6 +62,7 @@ import { AppConfigService } from './app-config.service';
     MultiselectDropdownModule,
     Angular2FontawesomeModule,
     BrowserAnimationsModule,
+    DataTableModule,
     ToastrModule.forRoot({timeOut: 10000}),
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({

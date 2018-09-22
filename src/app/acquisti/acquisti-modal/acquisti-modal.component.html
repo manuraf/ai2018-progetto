@@ -1,13 +1,13 @@
 <div class="modal-header">
     <h4 class="modal-title">
-      Stai acquistando {{archivi.length}} archivi
+      Stai acquistando {{numArchiviDaAcquistare}} archivi
     </h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-      <table class="table">
+      <table class="table table-striped" [mfData]="archivi" #mf="mfDataTable" [mfRowsOnPage]="3">
           <thead>
               <tr>
               <th scope="col">Id</th>
@@ -18,7 +18,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let archivio of archivi"> 
+              <tr *ngFor="let archivio of mf.data"> 
                 <td >{{archivio.id}}</td>
                 <td >{{archivio.utente}}</td>
                 <td>{{archivio.rappr_timestamp}}</td>
@@ -30,6 +30,13 @@
                 </td>
               </tr>
           </tbody>
+          <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
       </table>
   </div>
   <div class="modal-footer">
