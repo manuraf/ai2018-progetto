@@ -24,11 +24,10 @@ export class ArchiviUtentiComponent implements OnInit {
     const getArchivi = this.archiviService.getArchiviUtente();
     getArchivi.subscribe(
       (val) => {
-        console.log(val);
         this.archiviUtente = val;
       },
       (response) => {
-        console.log('Errore ' + response);
+        console.log(response);
       }
     );
 

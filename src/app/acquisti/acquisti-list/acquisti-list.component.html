@@ -61,12 +61,11 @@
             </form>
 
             <div class="form-group col-md-12">
-                Archivi selezionati {{archiviDaAcquistare.length}}
+                Archivi selezionati {{archivi.size}}
             </div>
 
             <div class="form-group col-md-12">
                     <agm-map  #agmMap [latitude]="45.0735886" [longitude]="7.6055662" 
-                        (mapClick)="onChooseLocation($event)"
                         (boundsChange)="boundsChange($event)">
                         <agm-drawing-manager (polygonComplete)="polygonCreated($event)" 
                             [drawingControl]="managerOptions.drawingControl" 

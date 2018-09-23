@@ -8,6 +8,7 @@ import { Posizione } from '../../posizioni/posizione.model';
 import { AcquistaService } from '../acquista.service';
 import { Archivio } from '../../archivi/archivio.model';
 import { AcquistiModalComponent } from '../acquisti-modal/acquisti-modal.component';
+import { ToastrService } from 'ngx-toastr';
 declare const google: any;
 
 @Component({
@@ -25,7 +26,8 @@ export class AcquistiListComponent implements OnInit {
   utenti: IMultiSelectOption[];
   utentiSelected: string[];
   posizioni: Posizione[] = [];
-  archiviDaAcquistare: Archivio[];
+  archivi: Set<number> = new Set();
+  archiviDaAcquistare: Archivio[] = [];
   polygonCreato : boolean = false;
   
   polygon: any;
@@ -36,8 +38,9 @@ export class AcquistiListComponent implements OnInit {
   renderedAcquista : boolean = false;
   dataInizio : Date;
   dataFine : Date;
+  radius: number = 6000;
 
-  colors: String[] = ['red','blue','green','grey','yellow']
+  colors: String[] = ['red','blue','DEEPPINK','BLACK','DARKGRAY','green','yellow']
   colorsUtenti: [{[key:string]:string}] = [{}];
 
   managerOptions = {
@@ -69,6 +72,7 @@ export class AcquistiListComponent implements OnInit {
   constructor(private authService: AuthService,
               private archiviService: ArchiviService,
               private acquistiService: AcquistaService,
+              private toastr: ToastrService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -100,6 +104,9 @@ export class AcquistiListComponent implements OnInit {
       {lat:event.getSouthWest().lat(),lng:event.getNorthEast().lng()},
       {lat:event.getSouthWest().lat(),lng:event.getSouthWest().lng()}
     ];
+
+    let altezza = Math.abs(event.getNorthEast().lat() - event.getSouthWest().lat());
+    this.radius = (40*altezza/100) * 10000;
 
     this.onDataChange();
   }
@@ -140,7 +147,7 @@ export class AcquistiListComponent implements OnInit {
           this.circle.push({
             lat: posizione.latitudine, 
             lng: posizione.longitudine, 
-            radius: 600, 
+            radius: this.radius, 
             color: this.colorsUtenti[posizione.archivio.utente]
           });
         })
@@ -156,7 +163,7 @@ export class AcquistiListComponent implements OnInit {
         this.aggiornaArchiviDaAcquistare();
       },
       (response) => {
-        console.log('Errore ' + response);
+        this.showError(response);
       }
     );
   }
@@ -233,8 +240,21 @@ export class AcquistiListComponent implements OnInit {
   };
 
   onAcquista(){
-    const modelRef = this.modalService.open(AcquistiModalComponent, { size: 'lg', backdrop: 'static' });
-    modelRef.componentInstance.archivi = this.archiviDaAcquistare;
+
+    const getArchiviWithAcquistati = this.acquistiService.getArchiviWithAcquistati(Array.from(this.archivi));
+
+    getArchiviWithAcquistati.subscribe(
+      (val) => {
+        this.archiviDaAcquistare =  val;
+
+        const modelRef = this.modalService.open(AcquistiModalComponent, { size: 'lg', backdrop: 'static' });
+        modelRef.componentInstance.archivi = this.archiviDaAcquistare;
+      },
+      (response) => {
+        this.showError(response);
+      }
+    );
+
   }
 
   aggiornaArchiviDaAcquistare() {
@@ -248,7 +268,8 @@ export class AcquistiListComponent implements OnInit {
           this.ricavaArchiviDaAcquistare(val);
         },
         (response) => {
-          console.log('Errore ' + response);
+          console.log(response);
+          this.showError(response);
         }
       );
 
@@ -260,24 +281,19 @@ export class AcquistiListComponent implements OnInit {
   ricavaArchiviDaAcquistare(posizioni:Posizione[]) {
 
     /* ho già le posizioni, quindi mi ricavo subito gli archivi da acquistare */
-    /* ricavo archivi dalle posizioni selezionate e apro la dialog di conferma */
-    let uniques = new Set();
+    /* ricavo id archivi dalle posizioni selezionate */
+    this.archivi = new Set();
 
     posizioni.map( p => {
-      uniques.add(p.archivio.id)
+      this.archivi.add(p.archivio.id)
     });
 
-    const getArchiviWithAcquistati = this.acquistiService.getArchiviWithAcquistati(Array.from(uniques));
+  }
 
-    getArchiviWithAcquistati.subscribe(
-      (val) => {
-        this.archiviDaAcquistare =  val;
-      },
-      (response) => {
-        console.log('Errore ' + response);
-      }
-    );
-
+  showError(message: string) {
+    this.toastr.error(message, 'Errore!', {
+      timeOut: 3000
+    });
   }
 
 }
