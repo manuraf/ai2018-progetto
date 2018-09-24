@@ -32,7 +32,7 @@ export class AuthService {
             .set('password', password);
 
         return this.httpClient.post<any>(
-            'http://localhost:8080/oauth/token',
+            this.baseUrl + '/oauth/token',
             body.toString(),
             {
               headers: new HttpHeaders()
