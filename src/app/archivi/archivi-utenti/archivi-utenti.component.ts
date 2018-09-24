@@ -21,6 +21,7 @@ export class ArchiviUtentiComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+
     const getArchivi = this.archiviService.getArchiviUtente();
     getArchivi.subscribe(
       (val) => {

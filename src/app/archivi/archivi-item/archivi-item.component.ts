@@ -47,7 +47,7 @@ export class ArchiviItemComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.form);
+
     if(!this.time){
       this.showError("L'orario deve essere valorizzato!");
       return;
@@ -64,7 +64,7 @@ export class ArchiviItemComponent implements OnInit {
     }
    
     const data = new Date(
-      this.form.value.data.year,this.form.value.data.month,this.form.value.data.day,
+      this.form.value.data.year,this.form.value.data.month-1,this.form.value.data.day,
       this.form.value.time.hour,this.form.value.time.minute,this.form.value.time.second
     );
     this.posizioni.push(new Posizione(data,this.form.value.lat, this.form.value.lng));

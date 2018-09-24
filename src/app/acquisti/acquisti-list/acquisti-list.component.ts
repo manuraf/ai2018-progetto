@@ -119,14 +119,14 @@ export class AcquistiListComponent implements OnInit {
 
     if(fromForm && this.timeFrom) {
       from = new Date(
-        fromForm.year,fromForm.month,fromForm.day,
+        fromForm.year,fromForm.month-1,fromForm.day,
         this.timeFrom.hour,this.timeFrom.minute,this.timeFrom.second
       );
     }
  
     if(toForm && this.timeTo) {
       to = new Date(
-        toForm.year,toForm.month,toForm.day,
+        toForm.year,toForm.month-1,toForm.day,
         this.timeTo.hour,this.timeTo.minute,this.timeTo.second
       );
     }
