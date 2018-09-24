@@ -66,7 +66,7 @@ import { AppConfigService } from './app-config.service';
     ToastrModule.forRoot({timeOut: 10000}),
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCzHWtPEqfeIYlmHKW3qdiaj3yU8vKt-Ss',
+      apiKey: 'AIzaSyDtDoCjRjh0OvD6h2emrXexOi9rCKc7jRA',
       libraries: ['places', 'drawing', 'geometry'],
     })
   ],
